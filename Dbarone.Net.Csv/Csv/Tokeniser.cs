@@ -102,7 +102,7 @@ namespace Dbarone.Net.Csv
                     {
                         field += sp.Read();
                     }
-                } while (!sp.EndOfString);
+                } while (!sp.Eof);
             } while (IsEscapedFieldStarted);
 
             // add the final cell

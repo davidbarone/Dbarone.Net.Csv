@@ -67,7 +67,13 @@ namespace Dbarone.Net.Csv
                         headers = tempHeaders.ToArray();
                     }
 
-                    // For all other records, we return a StringDictionary
+                    // For data rows, check field count matches header count
+                    if (tokens.Length != headers.Length)
+                    {
+                        throw new CsvException($"Column mismatch at line {line}.");
+                    }
+
+                    // return a StringDictionary
                     StringDictionary sd = new StringDictionary();
 
                     for (int f = 0; f < tokens.Length; f++)
