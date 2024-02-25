@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dbarone.Net.Csv", "Dbarone.Net.Csv\Dbarone.Net.Csv.csproj", "{850F7DA6-46E6-40C2-8B4F-AB5DE5042BAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dbarone.Net.Csv.Tests", "Dbarone.Net.Csv.Tests\Dbarone.Net.Csv.Tests.csproj", "{C42F1662-4BB1-429C-A598-01F474D233AC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{850F7DA6-46E6-40C2-8B4F-AB5DE5042BAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{850F7DA6-46E6-40C2-8B4F-AB5DE5042BAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{850F7DA6-46E6-40C2-8B4F-AB5DE5042BAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{850F7DA6-46E6-40C2-8B4F-AB5DE5042BAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C42F1662-4BB1-429C-A598-01F474D233AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C42F1662-4BB1-429C-A598-01F474D233AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C42F1662-4BB1-429C-A598-01F474D233AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C42F1662-4BB1-429C-A598-01F474D233AC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
