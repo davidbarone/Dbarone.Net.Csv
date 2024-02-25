@@ -12,9 +12,20 @@ public class CsvParserTests
 
     public static IEnumerable<object[]> CsvTestData => new List<object[]> {
 
+        // Simple CSV
         new object[]{
 @"field_name1,field_name2,field_name3
 aaa,bbb,ccc
+zzz,yyy,xxx",
+3,
+2
+},
+
+        // 1 record spans 2 lines
+        new object[]{
+@"field_name1,field_name2,field_name3
+aaa,bbb,""ccc
+ccc""
 zzz,yyy,xxx",
 3,
 2

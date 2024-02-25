@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 
@@ -51,8 +52,9 @@ namespace Dbarone.Net.Csv
                 var tokeniser = new Tokeniser(this.Configuration);
                 string[] tokens;
 
-                for (tokens = tokeniser.Tokenise(sr); !tokeniser.IsEOF; tokens = tokeniser.Tokenise(sr))
+                while (!tokeniser.IsEOF)
                 {
+                    tokens = tokeniser.Tokenise(sr);
                     line += tokeniser.LinesLastProcessed;
                     record++;
 
@@ -60,6 +62,9 @@ namespace Dbarone.Net.Csv
                     {
                         // first record, headers
                         headers = tokens;
+                        if (headers.Distinct().Count()<headers.Count()){
+                            throw new CsvException("Header fields must be unique.");
+                        }
                         fieldCount = headers.Length;
                     }
                     else if (record == 1)
@@ -78,7 +83,7 @@ namespace Dbarone.Net.Csv
                         // For data rows, check field count matches header count
                         if (tokens.Length != headers.Length)
                         {
-                            throw new CsvException($"Column mismatch at line {line}.");
+                            throw new CsvException($"Column mismatch at line {line}. Fields = {tokens.Length}, Headers = {headers.Length}.");
                         }
 
                         // return a StringDictionary
