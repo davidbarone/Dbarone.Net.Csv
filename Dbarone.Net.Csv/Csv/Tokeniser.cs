@@ -23,7 +23,8 @@ namespace Dbarone.Net.Csv
             this.configuration = configuration;
         }
 
-        public Tokeniser() {
+        public Tokeniser()
+        {
             this.configuration = new CsvConfiguration();
         }
 
@@ -33,6 +34,11 @@ namespace Dbarone.Net.Csv
         /// <returns>Returns a string array of tokens</returns>
         public string[] Tokenise(StreamReader sr)
         {
+            if (sr == null)
+            {
+                throw new CsvException("StreamReader is null!");
+            }
+
             this.LinesLastProcessed = 0;
             bool IsEscapedFieldStarted = false;
             string field = "";  // the current field value
@@ -40,103 +46,64 @@ namespace Dbarone.Net.Csv
 
             do
             {
+                // If we're processing multiple lines, need to add CRLF to the current field value.
+                if (this.LinesLastProcessed > 0)
+                {
+                    field += Environment.NewLine;
+                }
+
                 // Read next line from stream
                 var str = sr.ReadLine();
-                this.LinesLastProcessed++;
 
-                if (IsEscapedFieldStarted && Match(sr, configuration.FieldEscapeCharacter))
+                if (str == null)
                 {
-                    // match another text delimiter immediately after previous text delimiter, i.e. "" - treat as escaped text delimiter.
-                    if (Match(sr, configuration.FieldEscapeCharacter))
+                    throw new CsvException("Unexpected EOF!");
+                }
+
+                this.LinesLastProcessed++;
+                var sp = new StringParser(str);
+
+                do
+                {
+                    if (IsEscapedFieldStarted && sp.Match(configuration.FieldEscapeCharacter))
                     {
-                        // another text delimiter means treat as text in value
-                        field += configuration.FieldEscapeCharacter;
+                        // match another text delimiter immediately after previous text delimiter, i.e. "" - treat as escaped text delimiter.
+                        if (sp.Match(configuration.FieldEscapeCharacter))
+                        {
+                            // another text delimiter means treat as text in value
+                            field += configuration.FieldEscapeCharacter;
+                        }
+                        else
+                        {
+                            // closing text delimiter
+                            IsEscapedFieldStarted = false;
+                        }
                     }
+                    else if (!IsEscapedFieldStarted && sp.Match(configuration.FieldEscapeCharacter) && string.IsNullOrEmpty(field))
+                    {
+                        // text delimiter denoting start of value
+                        IsEscapedFieldStarted = true;
+                    }
+                    else if (!IsEscapedFieldStarted && sp.Match(configuration.FieldSeparator))
+                    {
+                        // Add value to array
+                        tokens.Add(field);
+                        field = string.Empty;
+                    }
+                    else if (!IsEscapedFieldStarted && !string.IsNullOrEmpty(field) && sp.Match(configuration.FieldEscapeCharacter))
+                        // Cannot have FieldEscapeCharacter in middle of record
+                        throw new CsvException("Unexpected field escape character found!");
                     else
                     {
-                        // closing text delimiter
-                        IsEscapedFieldStarted = false;
+                        field += sp.Read();
                     }
-                }
-                else if (!IsEscapedFieldStarted && Match(sr, configuration.FieldEscapeCharacter))
-                {
-                    // text delimiter denoting start of value
-                    IsEscapedFieldStarted = true;
-                }
-                else if (!IsEscapedFieldStarted && Match(sr, configuration.FieldSeparator))
-                {
-                    // Add value to array
-                    tokens.Add(field);
-                    field = string.Empty;
-                }
-                else if (!IsEscapedFieldStarted && !string.IsNullOrEmpty(field) && Match(sr, configuration.FieldEscapeCharacter))
-                    // Cannot have FieldEscapeCharacter in middle of record
-                    throw new Exception("Unexpected field escape character found!");
-                else
-                {
-                    field += this.Read(sr);
-                }
-            } while (!IsEscapedFieldStarted);
+                } while (!sp.EndOfString);
+            } while (IsEscapedFieldStarted);
 
             // add the final cell
             tokens.Add(field);
             this.IsEOF = sr.EndOfStream;
             return tokens.ToArray();
         }
-
-        #region Private Methods
-
-        /// <summary>
-        /// Matches a character.
-        /// </summary>
-        /// <param name="token">The input token character.</param>
-        /// <returns>Returns true and advances the cursor if match.</returns>
-        private bool Match(StreamReader sr, char? token)
-        {
-            if (!token.HasValue)
-                return false;
-
-            if (Peek(sr) == token)
-            {
-                Read(sr);
-                return true;
-            }
-            else
-                return false;
-        }
-
-        /// <summary>
-        /// Reads a character from the string, and advances the position.
-        /// </summary>
-        /// <returns></returns>
-        private char? Read(StreamReader sr)
-        {
-            if (sr.EndOfStream)
-            {
-                return null;
-            }
-            else
-            {
-                return (char)sr.Read();
-            }
-        }
-
-        /// <summary>
-        /// Peeks the next character without advancing the position.
-        /// </summary>
-        /// <returns>Returns the next character.</returns>
-        private char? Peek(StreamReader sr)
-        {
-            if (sr.EndOfStream)
-            {
-                return null;
-            }
-            else
-            {
-                return (char)sr.Peek();
-            }
-        }
-
-        #endregion
     }
 }
