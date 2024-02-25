@@ -27,6 +27,13 @@ namespace Dbarone.Net.Csv
         }
 
         /// <summary>
+        /// Creates a new CsvParser instance with default configuration.
+        /// </summary>
+        public CsvParser()
+        {
+            this.Configuration = new CsvConfiguration();
+        }
+        /// <summary>
         /// Parses a csv file.
         /// </summary>
         /// <param name="stream">The input csv stream object.</param>
@@ -44,7 +51,7 @@ namespace Dbarone.Net.Csv
                 var tokeniser = new Tokeniser(this.Configuration);
                 string[] tokens;
 
-                for (tokens = tokeniser.Tokenise(sr); tokeniser.IsEOF; tokens = tokeniser.Tokenise(sr))
+                for (tokens = tokeniser.Tokenise(sr); !tokeniser.IsEOF; tokens = tokeniser.Tokenise(sr))
                 {
                     line += tokeniser.LinesLastProcessed;
                     record++;
@@ -66,21 +73,23 @@ namespace Dbarone.Net.Csv
                         }
                         headers = tempHeaders.ToArray();
                     }
-
-                    // For data rows, check field count matches header count
-                    if (tokens.Length != headers.Length)
+                    else
                     {
-                        throw new CsvException($"Column mismatch at line {line}.");
-                    }
+                        // For data rows, check field count matches header count
+                        if (tokens.Length != headers.Length)
+                        {
+                            throw new CsvException($"Column mismatch at line {line}.");
+                        }
 
-                    // return a StringDictionary
-                    StringDictionary sd = new StringDictionary();
+                        // return a StringDictionary
+                        StringDictionary sd = new StringDictionary();
 
-                    for (int f = 0; f < tokens.Length; f++)
-                    {
-                        sd[headers[f]] = tokens[f];
+                        for (int f = 0; f < tokens.Length; f++)
+                        {
+                            sd[headers[f]] = tokens[f];
+                        }
+                        yield return sd;
                     }
-                    yield return sd;
                 }
             }
             finally

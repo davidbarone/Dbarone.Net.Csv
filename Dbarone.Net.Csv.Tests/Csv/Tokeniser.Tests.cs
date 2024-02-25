@@ -19,6 +19,8 @@ public class TokeniserTests
     [InlineData("a,\"b\",c", 3, 1, null, null)] // escape using double-quotes.
     [InlineData("a,\"b\"\"\",c", 3, 1, 1, "b\"")] // including quote in escaped value. 2nd column should be [b"].
     [InlineData("a,b, c ", 3, 1, 2, " c ")] // preserve any whitespace for the record.
+    [InlineData("a,,c", 3, 1, 1, "")] // 2nd field is empty string.
+    [InlineData(",,", 3, 1, 2, "")] // 3 empty strings.
     [InlineData("a,b,\"hello\r\nworld\"", 3, 2, 2, "hello\r\nworld")] // 3rd field spans 2 lines.
     public void TestValidRecords(string input, int expectedFieldCount, int expectedLinesRead, int? checkField, string? checkValue)
     {
@@ -50,7 +52,7 @@ public class TokeniserTests
     [InlineData("","Unexpected EOF!")]    // empty string
     [InlineData("a,b,\"c", "Unexpected EOF!")]    // No terminating quote character after 'c'
     [InlineData("a,b\"B,c", "Unexpected field escape character found!")]    // Text escape character found midway through field
-    public void TestFailure(string input, string expectedMessage)
+    public void TestInvalidRecords(string input, string expectedMessage)
     {
         // convert string to stream
         byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(input);
