@@ -79,10 +79,18 @@ namespace Dbarone.Net.Csv
                             IsEscapedFieldStarted = false;
                         }
                     }
-                    else if (!IsEscapedFieldStarted && sp.Match(configuration.FieldEscapeCharacter) && string.IsNullOrEmpty(field))
+                    else if (!IsEscapedFieldStarted && sp.Match(configuration.FieldEscapeCharacter))
                     {
-                        // text delimiter denoting start of value
-                        IsEscapedFieldStarted = true;
+                        if (string.IsNullOrEmpty(field))
+                        {
+                            // text delimiter denoting start of value
+                            IsEscapedFieldStarted = true;
+                        }
+                        else
+                        {
+                            // Cannot have FieldEscapeCharacter in middle of record
+                            throw new CsvException("Unexpected field escape character found!");
+                        }
                     }
                     else if (!IsEscapedFieldStarted && sp.Match(configuration.FieldSeparator))
                     {
@@ -90,9 +98,6 @@ namespace Dbarone.Net.Csv
                         tokens.Add(field);
                         field = string.Empty;
                     }
-                    else if (!IsEscapedFieldStarted && !string.IsNullOrEmpty(field) && sp.Match(configuration.FieldEscapeCharacter))
-                        // Cannot have FieldEscapeCharacter in middle of record
-                        throw new CsvException("Unexpected field escape character found!");
                     else
                     {
                         field += sp.Read();

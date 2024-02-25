@@ -47,9 +47,9 @@ public class TokeniserTests
     }
 
     [Theory]
-    //[InlineData("","Unexpected EOF!")]    // empty string
-    //[InlineData("a,b,\"c", "Unexpected EOF!")]    // No terminating quote character after 'c'
-    [InlineData("a,b\"b,c", "Unepected EOF!")]    // Text escape character found midway through field
+    [InlineData("","Unexpected EOF!")]    // empty string
+    [InlineData("a,b,\"c", "Unexpected EOF!")]    // No terminating quote character after 'c'
+    [InlineData("a,b\"B,c", "Unexpected field escape character found!")]    // Text escape character found midway through field
     public void TestFailure(string input, string expectedMessage)
     {
         // convert string to stream
