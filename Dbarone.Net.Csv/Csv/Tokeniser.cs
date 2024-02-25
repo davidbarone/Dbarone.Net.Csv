@@ -23,6 +23,10 @@ namespace Dbarone.Net.Csv
             this.configuration = configuration;
         }
 
+        public Tokeniser() {
+            this.configuration = new CsvConfiguration();
+        }
+
         /// <summary>
         /// Gets the tokens on the next record. Note that this may read more than 1 line of the file.
         /// </summary>
