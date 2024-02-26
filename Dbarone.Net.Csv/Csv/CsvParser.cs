@@ -34,17 +34,19 @@ namespace Dbarone.Net.Csv
         {
             this.Configuration = new CsvConfiguration();
         }
+
         /// <summary>
         /// Parses a csv file.
         /// </summary>
         /// <param name="stream">The input csv stream object.</param>
+        /// <param name="headers">Optional array of header names if the csv file does not contain headers.</param>
         /// <returns>Parses the CSV and returns a StringDictionary object for each row.</returns>
-        public IEnumerable<StringDictionary> Parse(Stream stream)
+        /// <exception cref="CsvException">Throws an exception under various error conditions.</exception>
+        public IEnumerable<StringDictionary> Parse(Stream stream, string[]? headers = null)
         {
             StreamReader sr = new StreamReader(stream);
             int line = 0;                       // line in file
             int record = 0;                     // records processed
-            string[] headers = new string[0];    // headers
             int fieldCount = 0;
 
             try
@@ -64,31 +66,42 @@ namespace Dbarone.Net.Csv
                     }
                     else
                     {
-                        if (Configuration.HasHeader && record == 1)
+                        if (record == 1)
                         {
-                            // first record, headers
-                            headers = tokens;
+                            // first record, headers in csv file. Header array can be provided by caller.
+                            if (headers == null)
+                            {
+                                if (Configuration.HasHeader)
+                                {
+                                    // use headers in first record of csv file
+                                    headers = tokens;
+                                }
+                                else
+                                {
+                                    // generate new headers for each field in 1st data record
+                                    fieldCount = tokens.Length;
+                                    List<string> tempHeaders = new List<string>();
+                                    for (int h = 1; h <= fieldCount; h++)
+                                    {
+                                        tempHeaders.Add($"Column{h}");
+                                    }
+                                    headers = tempHeaders.ToArray();
+                                }
+                            }
+
+                            // Check for duplicate headers
                             if (headers.Distinct().Count() < headers.Count())
                             {
                                 throw new CsvException("Header fields must be unique.");
                             }
                             fieldCount = headers.Length;
                         }
-                        else if (record == 1)
-                        {
-                            // first record, no headers
-                            fieldCount = tokens.Length;
-                            List<string> tempHeaders = new List<string>();
-                            for (int h = 1; h <= fieldCount; h++)
-                            {
-                                tempHeaders.Add($"Column{h}");
-                            }
-                            headers = tempHeaders.ToArray();
-                        }
-                        else
+
+                        // process data: where record > 1 or file doesn't have header
+                        if (!(record == 1 && this.Configuration.HasHeader))
                         {
                             // For data rows, check field count matches header count
-                            if (tokens.Length != headers.Length)
+                            if (tokens.Length != headers!.Length)
                             {
                                 throw new CsvException($"Column mismatch at line {line}. Fields = {tokens.Length}, Headers = {headers.Length}.");
                             }

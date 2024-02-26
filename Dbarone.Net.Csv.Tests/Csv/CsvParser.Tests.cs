@@ -13,8 +13,17 @@ public class CsvParserTests
     public static IEnumerable<object[]> Datasets => new List<object[]> {
             new object[]{
                 "..\\..\\..\\Datasets\\iris.data",
-                150
+                false,
+                150,
+                new string[] {"sepal_length", "sepal_width", "petal_length", "petal_width", "species" }
+            },
+
+            new object[]{
+                "..\\..\\..\\Datasets\\sakila\\sakila-csv\\film.csv",
+                true,
+                1000
             }
+
     };
 
     public static IEnumerable<object[]> CsvTestData => new List<object[]> {
@@ -68,12 +77,19 @@ zzz,yyy,xxx
 
 
     [Theory, MemberData(nameof(Datasets))]
-    public void TestDatasets(string file, int expectedRecords)
+    public void TestDatasets(string file, bool hasHeader, int expectedRecords, string[]? headers = null)
     {
         using (FileStream fs = File.Open(file, FileMode.Open))
         {
-            CsvParser csv = new CsvParser();
-            var results = csv.Parse(fs).ToList();
+            CsvConfiguration configuration = new CsvConfiguration();
+
+            if (!hasHeader)
+            {
+                configuration.HasHeader = hasHeader;
+            }
+
+            CsvParser csv = new CsvParser(configuration);
+            var results = csv.Parse(fs, headers).ToList();
             Assert.Equal(expectedRecords, results.Count());
         }
     }

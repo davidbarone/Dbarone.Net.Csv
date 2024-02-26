@@ -43,7 +43,7 @@ namespace Dbarone.Net.Csv
             bool IsEscapedFieldStarted = false;
             string field = "";  // the current field value
             List<string> tokens = new List<string>();
-            bool hasReadData;       // to check for completely blank lines
+            bool hasReadData = false;       // to check for completely blank lines
 
             do
             {
@@ -60,6 +60,9 @@ namespace Dbarone.Net.Csv
                 if (str == null)
                 {
                     throw new CsvException("Unexpected EOF!");
+                }
+                else if (str==""){
+                    // ignore
                 }
                 else
                 {
