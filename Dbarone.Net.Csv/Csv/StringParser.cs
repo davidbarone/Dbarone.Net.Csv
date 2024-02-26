@@ -9,7 +9,7 @@ namespace Dbarone.Net.Csv
     /// </summary>
     public class StringParser
     {
-        char[] innerString = null;
+        char[] innerString;
         int position = -1;
 
         /// <summary>

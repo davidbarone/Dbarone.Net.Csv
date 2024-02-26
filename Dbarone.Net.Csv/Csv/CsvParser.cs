@@ -50,7 +50,7 @@ namespace Dbarone.Net.Csv
             try
             {
                 var tokeniser = new Tokeniser(this.Configuration);
-                string[] tokens;
+                string[]? tokens;
 
                 while (!tokeniser.IsEOF)
                 {
@@ -58,42 +58,50 @@ namespace Dbarone.Net.Csv
                     line += tokeniser.LinesLastProcessed;
                     record++;
 
-                    if (Configuration.HasHeader && record == 1)
+                    if (tokens == null)
                     {
-                        // first record, headers
-                        headers = tokens;
-                        if (headers.Distinct().Count()<headers.Count()){
-                            throw new CsvException("Header fields must be unique.");
-                        }
-                        fieldCount = headers.Length;
-                    }
-                    else if (record == 1)
-                    {
-                        // first record, no headers
-                        fieldCount = tokens.Length;
-                        List<string> tempHeaders = new List<string>();
-                        for (int h = 1; h <= fieldCount; h++)
-                        {
-                            tempHeaders.Add($"Column{h}");
-                        }
-                        headers = tempHeaders.ToArray();
+                        // ignore blank records
                     }
                     else
                     {
-                        // For data rows, check field count matches header count
-                        if (tokens.Length != headers.Length)
+                        if (Configuration.HasHeader && record == 1)
                         {
-                            throw new CsvException($"Column mismatch at line {line}. Fields = {tokens.Length}, Headers = {headers.Length}.");
+                            // first record, headers
+                            headers = tokens;
+                            if (headers.Distinct().Count() < headers.Count())
+                            {
+                                throw new CsvException("Header fields must be unique.");
+                            }
+                            fieldCount = headers.Length;
                         }
-
-                        // return a StringDictionary
-                        StringDictionary sd = new StringDictionary();
-
-                        for (int f = 0; f < tokens.Length; f++)
+                        else if (record == 1)
                         {
-                            sd[headers[f]] = tokens[f];
+                            // first record, no headers
+                            fieldCount = tokens.Length;
+                            List<string> tempHeaders = new List<string>();
+                            for (int h = 1; h <= fieldCount; h++)
+                            {
+                                tempHeaders.Add($"Column{h}");
+                            }
+                            headers = tempHeaders.ToArray();
                         }
-                        yield return sd;
+                        else
+                        {
+                            // For data rows, check field count matches header count
+                            if (tokens.Length != headers.Length)
+                            {
+                                throw new CsvException($"Column mismatch at line {line}. Fields = {tokens.Length}, Headers = {headers.Length}.");
+                            }
+
+                            // return a StringDictionary
+                            StringDictionary sd = new StringDictionary();
+
+                            for (int f = 0; f < tokens.Length; f++)
+                            {
+                                sd[headers[f]] = tokens[f];
+                            }
+                            yield return sd;
+                        }
                     }
                 }
             }

@@ -32,7 +32,7 @@ namespace Dbarone.Net.Csv
         /// Gets the tokens on the next record. Note that this may read more than 1 line of the file.
         /// </summary>
         /// <returns>Returns a string array of tokens</returns>
-        public string[] Tokenise(StreamReader sr)
+        public string[]? Tokenise(StreamReader sr)
         {
             if (sr == null)
             {
@@ -43,6 +43,7 @@ namespace Dbarone.Net.Csv
             bool IsEscapedFieldStarted = false;
             string field = "";  // the current field value
             List<string> tokens = new List<string>();
+            bool hasReadData;       // to check for completely blank lines
 
             do
             {
@@ -54,61 +55,79 @@ namespace Dbarone.Net.Csv
 
                 // Read next line from stream
                 var str = sr.ReadLine();
+                this.LinesLastProcessed++;
 
                 if (str == null)
                 {
                     throw new CsvException("Unexpected EOF!");
                 }
-
-                this.LinesLastProcessed++;
-                var sp = new StringParser(str);
-
-                do
+                else
                 {
-                    if (IsEscapedFieldStarted && sp.Match(configuration.FieldEscapeCharacter))
+                    var sp = new StringParser(str);
+
+                    do
                     {
-                        // match another text delimiter immediately after previous text delimiter, i.e. "" - treat as escaped text delimiter.
-                        if (sp.Match(configuration.FieldEscapeCharacter))
+                        if (IsEscapedFieldStarted && sp.Match(configuration.FieldEscapeCharacter))
                         {
-                            // another text delimiter means treat as text in value
-                            field += configuration.FieldEscapeCharacter;
+                            hasReadData = true;
+
+                            // match another text delimiter immediately after previous text delimiter, i.e. "" - treat as escaped text delimiter.
+                            if (sp.Match(configuration.FieldEscapeCharacter))
+                            {
+                                // another text delimiter means treat as text in value
+                                field += configuration.FieldEscapeCharacter;
+                            }
+                            else
+                            {
+                                // closing text delimiter
+                                IsEscapedFieldStarted = false;
+                            }
+                        }
+                        else if (!IsEscapedFieldStarted && sp.Match(configuration.FieldEscapeCharacter))
+                        {
+                            hasReadData = true;
+
+                            if (string.IsNullOrEmpty(field))
+                            {
+                                // text delimiter denoting start of value
+                                IsEscapedFieldStarted = true;
+                            }
+                            else
+                            {
+                                // Cannot have FieldEscapeCharacter in middle of record
+                                throw new CsvException("Unexpected field escape character found!");
+                            }
+                        }
+                        else if (!IsEscapedFieldStarted && sp.Match(configuration.FieldSeparator))
+                        {
+                            hasReadData = true;
+
+                            // Add value to array
+                            tokens.Add(field);
+                            field = string.Empty;
                         }
                         else
                         {
-                            // closing text delimiter
-                            IsEscapedFieldStarted = false;
+                            hasReadData = true;
+
+                            field += sp.Read();
                         }
-                    }
-                    else if (!IsEscapedFieldStarted && sp.Match(configuration.FieldEscapeCharacter))
-                    {
-                        if (string.IsNullOrEmpty(field))
-                        {
-                            // text delimiter denoting start of value
-                            IsEscapedFieldStarted = true;
-                        }
-                        else
-                        {
-                            // Cannot have FieldEscapeCharacter in middle of record
-                            throw new CsvException("Unexpected field escape character found!");
-                        }
-                    }
-                    else if (!IsEscapedFieldStarted && sp.Match(configuration.FieldSeparator))
-                    {
-                        // Add value to array
-                        tokens.Add(field);
-                        field = string.Empty;
-                    }
-                    else
-                    {
-                        field += sp.Read();
-                    }
-                } while (!sp.Eof);
+                    } while (!sp.Eof);
+                }
             } while (IsEscapedFieldStarted);
 
             // add the final cell
             tokens.Add(field);
             this.IsEOF = sr.EndOfStream;
-            return tokens.ToArray();
+
+            if (hasReadData)
+            {
+                return tokens.ToArray();
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

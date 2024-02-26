@@ -21,6 +21,7 @@ public class TokeniserTests
     [InlineData("a,b, c ", 3, 1, 2, " c ")] // preserve any whitespace for the record.
     [InlineData("a,,c", 3, 1, 1, "")] // 2nd field is empty string.
     [InlineData(",,", 3, 1, 2, "")] // 3 empty strings.
+    [InlineData(",,\n\n", 3, 1, 2, "")] // 3 empty strings with blank line at end with linux line endings (which need to be ignored).
     [InlineData("a,b,\"hello\r\nworld\"", 3, 2, 2, "hello\r\nworld")] // 3rd field spans 2 lines.
     public void TestValidRecords(string input, int expectedFieldCount, int expectedLinesRead, int? checkField, string? checkValue)
     {

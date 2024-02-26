@@ -10,6 +10,13 @@ namespace Dbarone.Net.Csv.Tests;
 public class CsvParserTests
 {
 
+    public static IEnumerable<object[]> Datasets => new List<object[]> {
+            new object[]{
+                "..\\..\\..\\Datasets\\iris.data",
+                150
+            }
+    };
+
     public static IEnumerable<object[]> CsvTestData => new List<object[]> {
 
         // Simple CSV
@@ -29,7 +36,19 @@ ccc""
 zzz,yyy,xxx",
 3,
 2
-}
+},
+
+        // Blank line(s) at end
+        new object[]{
+@"field_name1,field_name2,field_name3
+aaa,bbb,ccc
+zzz,yyy,xxx
+
+",
+3,
+2
+},
+
     };
 
     [Theory, MemberData(nameof(CsvTestData))]
@@ -45,5 +64,17 @@ zzz,yyy,xxx",
 
         Assert.Equal(expectedColumns, results.First().Count);
         Assert.Equal(expectedRecords, results.Count());
+    }
+
+
+    [Theory, MemberData(nameof(Datasets))]
+    public void TestDatasets(string file, int expectedRecords)
+    {
+        using (FileStream fs = File.Open(file, FileMode.Open))
+        {
+            CsvParser csv = new CsvParser();
+            var results = csv.Parse(fs).ToList();
+            Assert.Equal(expectedRecords, results.Count());
+        }
     }
 }
