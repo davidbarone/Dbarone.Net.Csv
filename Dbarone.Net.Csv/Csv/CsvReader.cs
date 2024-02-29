@@ -20,7 +20,7 @@ namespace Dbarone.Net.Csv
         Stream Stream { get; set; }
 
         /// <summary>
-        /// Creates a new configured CsvParser instance.
+        /// Creates a new configured CsvReader instance.
         /// </summary>
         /// <param name="configuration">The csv configuration.</param>
         public CsvReader(Stream stream, CsvConfiguration configuration)
@@ -30,7 +30,7 @@ namespace Dbarone.Net.Csv
         }
 
         /// <summary>
-        /// Creates a new CsvParser instance with default configuration.
+        /// Creates a new CsvReader instance with default configuration.
         /// </summary>
         public CsvReader(Stream stream)
         {
@@ -39,11 +39,9 @@ namespace Dbarone.Net.Csv
         }
 
         /// <summary>
-        /// Parses a csv file.
+        /// Reads a csv file.
         /// </summary>
-        /// <param name="stream">The input csv stream object.</param>
-        /// <param name="headers">Optional array of header names if the csv file does not contain headers.</param>
-        /// <returns>Parses the CSV and returns a StringDictionary object for each row.</returns>
+        /// <returns>Parses the csv file and returns a StringDictionary object for each row.</returns>
         /// <exception cref="CsvException">Throws an exception under various error conditions.</exception>
         public IEnumerable<StringDictionary> Read()
         {
