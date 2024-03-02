@@ -19,28 +19,7 @@ namespace Dbarone.Net.Csv
     {
         CsvConfiguration Configuration { get; set; }
         Stream Stream { get; set; }
-        public InvalidRowDelegate? InvalidRow { get; set; } = default!;
 
-        /// <summary>
-        /// <see cref="InvalidRowDelegate"> to ignore blank records.
-        /// </summary>
-        /// <param name="record">The record number.</param>
-        /// <param name="headers">The header array.</param>
-        /// <param name="tokens">The record token array.</param>
-        /// <returns>Returns a modified token array, or null if the record is to be ignored.</returns>
-        /// <exception cref="Exception">Throws an exception under error conditions.</exception>
-        public static string[]? IgnoreBlankRows(int record, string[] headers, string[] tokens)
-        {
-            if (tokens.Length == 1 && tokens[0] == "")
-            {
-                // ignore blank rows
-                return null;
-            }
-            else
-            {
-                throw new Exception("Error!");
-            }
-        }
 
         /// <summary>
         /// Creates a new configured CsvReader instance.
@@ -123,13 +102,16 @@ namespace Dbarone.Net.Csv
                             // For data rows, check field count matches header count
                             if (tokens.Length != headers!.Length)
                             {
-                                if (this.InvalidRow != null)
+                                if (this.Configuration.InvalidRowHandler != null)
                                 {
                                     try
                                     {
-                                        tokens = this.InvalidRow(record, headers, tokens);
+                                        if (!this.Configuration.InvalidRowHandler(record, headers, ref tokens))
+                                        {
+                                            throw new CsvException($"Column mismatch at record {record}. Fields = {tokens.Length}, Headers = {headers.Length}.");
+                                        }
                                     }
-                                    catch (Exception ex)
+                                    catch (Exception)
                                     {
                                         throw new CsvException($"Column mismatch at record {record}. Fields = {tokens.Length}, Headers = {headers.Length}.");
                                     }

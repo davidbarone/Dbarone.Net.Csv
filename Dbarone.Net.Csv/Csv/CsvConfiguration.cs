@@ -38,4 +38,30 @@ public class CsvConfiguration
     /// Customer header specification.
     /// </summary>
     public string[]? Headers { get; set; } = null;
+
+    /// <summary>
+    /// Callback function for processing of invalid data rows.
+    /// </summary>
+    public InvalidRowDelegate? InvalidRowHandler { get; set; } = default!;
+
+    /// <summary>
+    /// <see cref="InvalidRowDelegate"> to ignore blank records.
+    /// </summary>
+    /// <param name="record">The record number.</param>
+    /// <param name="headers">The header array.</param>
+    /// <param name="tokens">The record token array.</param>
+    /// <returns>Returns a modified token array, or null if the record is to be ignored.</returns>
+    public static InvalidRowDelegate IgnoreBlankRowsHandler = (int record, string[] headers, ref string[]? tokens) =>
+    {
+        if (tokens!.Length == 1 && tokens[0] == "")
+        {
+            // ignore blank rows
+            tokens = null;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    };
 }
