@@ -34,7 +34,7 @@ namespace Dbarone.Net.Csv
 
             if (Peek() == token)
             {
-                Read();
+                var c = Read();
                 return true;
             }
             else
@@ -50,7 +50,10 @@ namespace Dbarone.Net.Csv
             if (Eof)
                 return null;
             else
-                return innerString[++position];
+            {
+                position++;
+                return innerString[position];
+            }
         }
 
         /// <summary>

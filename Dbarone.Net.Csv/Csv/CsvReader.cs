@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
@@ -18,6 +19,28 @@ namespace Dbarone.Net.Csv
     {
         CsvConfiguration Configuration { get; set; }
         Stream Stream { get; set; }
+        public InvalidRowDelegate? InvalidRow { get; set; } = default!;
+
+        /// <summary>
+        /// <see cref="InvalidRowDelegate"> to ignore blank records.
+        /// </summary>
+        /// <param name="record">The record number.</param>
+        /// <param name="headers">The header array.</param>
+        /// <param name="tokens">The record token array.</param>
+        /// <returns>Returns a modified token array, or null if the record is to be ignored.</returns>
+        /// <exception cref="Exception">Throws an exception under error conditions.</exception>
+        public static string[]? IgnoreBlankRows(int record, string[] headers, string[] tokens)
+        {
+            if (tokens.Length == 1 && tokens[0] == "")
+            {
+                // ignore blank rows
+                return null;
+            }
+            else
+            {
+                throw new Exception("Error!");
+            }
+        }
 
         /// <summary>
         /// Creates a new configured CsvReader instance.
@@ -63,53 +86,63 @@ namespace Dbarone.Net.Csv
                         line += tokeniser.LinesLastProcessed;
                         record++;
 
-                        if (tokens == null)
+                        if (record == 1)
                         {
-                            // ignore blank records
-                        }
-                        else
-                        {
-                            if (record == 1)
+                            // first record, headers in csv file. Header array can be provided by caller.
+                            if (headers == null)
                             {
-                                // first record, headers in csv file. Header array can be provided by caller.
-                                if (headers == null)
+                                if (Configuration.HasHeader)
                                 {
-                                    if (Configuration.HasHeader)
-                                    {
-                                        // use headers in first record of csv file
-                                        headers = tokens;
-                                    }
-                                    else
-                                    {
-                                        // generate new headers for each field in 1st data record
-                                        fieldCount = tokens.Length;
-                                        List<string> tempHeaders = new List<string>();
-                                        for (int h = 1; h <= fieldCount; h++)
-                                        {
-                                            tempHeaders.Add($"Column{h}");
-                                        }
-                                        headers = tempHeaders.ToArray();
-                                    }
+                                    // use headers in first record of csv file
+                                    headers = tokens;
                                 }
-
-                                // Check for duplicate headers
-                                if (headers.Distinct().Count() < headers.Count())
+                                else
                                 {
-                                    throw new CsvException("Header fields must be unique.");
+                                    // generate new headers for each field in 1st data record
+                                    fieldCount = tokens.Length;
+                                    List<string> tempHeaders = new List<string>();
+                                    for (int h = 1; h <= fieldCount; h++)
+                                    {
+                                        tempHeaders.Add($"Column{h}");
+                                    }
+                                    headers = tempHeaders.ToArray();
                                 }
-                                fieldCount = headers.Length;
                             }
 
-                            // process data: where record > 1 or file doesn't have header
-                            if (!(record == 1 && this.Configuration.HasHeader))
+                            // Check for duplicate headers
+                            if (headers.Distinct().Count() < headers.Count())
                             {
-                                // For data rows, check field count matches header count
-                                if (tokens.Length != headers!.Length)
-                                {
-                                    throw new CsvException($"Column mismatch at line {line}. Fields = {tokens.Length}, Headers = {headers.Length}.");
-                                }
+                                throw new CsvException("Header fields must be unique.");
+                            }
+                            fieldCount = headers.Length;
+                        }
 
-                                // return a StringDictionary
+                        // process data: where record > 1 or file doesn't have header
+                        if (!(record == 1 && this.Configuration.HasHeader))
+                        {
+                            // For data rows, check field count matches header count
+                            if (tokens.Length != headers!.Length)
+                            {
+                                if (this.InvalidRow != null)
+                                {
+                                    try
+                                    {
+                                        tokens = this.InvalidRow(record, headers, tokens);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        throw new CsvException($"Column mismatch at record {record}. Fields = {tokens.Length}, Headers = {headers.Length}.");
+                                    }
+                                }
+                                else
+                                {
+                                    throw new CsvException($"Column mismatch at record {record}. Fields = {tokens.Length}, Headers = {headers.Length}.");
+                                }
+                            }
+
+                            // return a StringDictionary
+                            if (tokens != null)
+                            {
                                 StringDictionary sd = new StringDictionary();
 
                                 for (int f = 0; f < tokens.Length; f++)

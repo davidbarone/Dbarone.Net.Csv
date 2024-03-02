@@ -29,6 +29,68 @@ namespace Dbarone.Net.Csv
         }
 
         /// <summary>
+        /// Returns the next line, or final line if end of stream reached. Allow for non-standard line terminators to be specified.
+        /// The Read() method of StringReader only recognises standard end of line markers line CRLF and LF.
+        /// </summary>
+        /// <param name="sr">The StreamReader instance.</param>
+        /// <param name="lineDelimiter">The end of line marker.</param>
+        /// <returns>Returns 1 line of characters up to the end of line marker (or end of stream).</returns>
+        public string? GetLine(StreamReader sr)
+        {
+            List<char> arr = new List<char>();
+            char[] EOLChar = this.configuration.LineDelimiter.ToCharArray();
+
+            if (sr.EndOfStream)
+            {
+                return null;
+            }
+
+            while (true)
+            {
+                bool matchEOL = false;
+                var position = sr.BaseStream.Position;
+
+                // Check if next chars match EOL
+                for (int j = 0; j < EOLChar.Length; j++)
+                {
+                    int i = sr.Read();
+
+                    if (i == -1)
+                    {
+                        // End of stream
+                        return new string(arr.ToArray());
+                    }
+                    if (j == 0 && EOLChar[j] == i)
+                    {
+                        matchEOL = true;
+                    }
+                    else if (matchEOL == true && EOLChar[j] == i)
+                    {
+                        // continue reading end of line characters
+                    }
+                    else if (matchEOL == true && EOLChar[j] != i)
+                    {
+                        // started to match, but found diff - roll back pointer and continue reading characters
+                        sr.BaseStream.Position = position;
+                        matchEOL = false;
+                        break;
+                    }
+                    else
+                    {
+                        // just read normal character - add to array
+                        arr.Add((char)i);
+                        break;
+                    }
+                }
+                if (matchEOL)
+                {
+                    // found end of line
+                    return new string(arr.ToArray());
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets the tokens on the next record. Note that this may read more than 1 line of the file.
         /// </summary>
         /// <returns>Returns a string array of tokens</returns>
@@ -47,22 +109,19 @@ namespace Dbarone.Net.Csv
 
             do
             {
-                // If we're processing multiple lines, need to add CRLF to the current field value.
+                // If we're processing multiple lines, need to add line delimiter to the current field value.
                 if (this.LinesLastProcessed > 0)
                 {
-                    field += Environment.NewLine;
+                    field += this.configuration.LineDelimiter;
                 }
 
                 // Read next line from stream
-                var str = sr.ReadLine();
+                var str = GetLine(sr);
                 this.LinesLastProcessed++;
 
                 if (str == null)
                 {
                     throw new CsvException("Unexpected EOF!");
-                }
-                else if (str==""){
-                    // ignore
                 }
                 else
                 {
