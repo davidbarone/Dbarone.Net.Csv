@@ -20,7 +20,6 @@ namespace Dbarone.Net.Csv
         CsvConfiguration Configuration { get; set; }
         Stream Stream { get; set; }
 
-
         /// <summary>
         /// Creates a new configured CsvReader instance.
         /// </summary>
@@ -102,21 +101,9 @@ namespace Dbarone.Net.Csv
                             // For data rows, check field count matches header count
                             if (tokens.Length != headers!.Length)
                             {
-                                if (this.Configuration.InvalidRowHandler != null)
-                                {
-                                    try
-                                    {
-                                        if (!this.Configuration.InvalidRowHandler(record, headers, ref tokens))
-                                        {
-                                            throw new CsvException($"Column mismatch at record {record}. Fields = {tokens.Length}, Headers = {headers.Length}.");
-                                        }
-                                    }
-                                    catch (Exception)
-                                    {
-                                        throw new CsvException($"Column mismatch at record {record}. Fields = {tokens.Length}, Headers = {headers.Length}.");
-                                    }
-                                }
-                                else
+                                var handler = this.Configuration.InvalidRowHandler ?? CsvConfiguration.DefaultInvalidRowHandler;
+
+                                if (!handler(record, headers, ref tokens))
                                 {
                                     throw new CsvException($"Column mismatch at record {record}. Fields = {tokens.Length}, Headers = {headers.Length}.");
                                 }

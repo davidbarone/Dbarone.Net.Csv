@@ -9,9 +9,9 @@ namespace Dbarone.Net.Csv;
 public class CsvConfiguration
 {
     /// <summary>
-    /// Gets / sets the line delimiter. Defaults to CRLF for non unix systems, LF for unix systems.
+    /// Gets / sets the line separator string. Defaults to CRLF for non unix systems, LF for unix systems.
     /// </summary>
-    public string LineDelimiter { get; set; } = Environment.NewLine;
+    public string LineSeparator { get; set; } = Environment.NewLine;
 
     /// <summary>
     /// Gets / sets the field separator. Defaults to comma character (%x2C) per rfc4180 specification.
@@ -21,7 +21,7 @@ public class CsvConfiguration
     /// <summary>
     /// Gets / sets an optional field escape character. Defaults to double-quote character (%x22) per rfc4180 specification
     /// </summary>
-    public char? FieldEscapeCharacter { get; set; } = '"';
+    public char FieldEscape { get; set; } = '"';
 
     /// <summary>
     /// Gets / sets whether the Csv file has a header line. The default is true. If the Csv file does not have headers
@@ -42,7 +42,7 @@ public class CsvConfiguration
     /// <summary>
     /// Callback function for processing of invalid data rows.
     /// </summary>
-    public InvalidRowDelegate? InvalidRowHandler { get; set; } = default!;
+    public InvalidRowDelegate? InvalidRowHandler { get; set; } = CsvConfiguration.DefaultInvalidRowHandler;
 
     /// <summary>
     /// <see cref="InvalidRowDelegate"> to ignore blank records.
@@ -64,4 +64,9 @@ public class CsvConfiguration
             return false;
         }
     };
+
+    /// <summary>
+    /// Default invalid row handler.
+    /// </summary>
+    public static InvalidRowDelegate DefaultInvalidRowHandler = (int record, string[] headers, ref string[]? tokens) => false;
 }

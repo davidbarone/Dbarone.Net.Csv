@@ -38,7 +38,7 @@ namespace Dbarone.Net.Csv
         public string? GetLine(StreamReader sr)
         {
             List<char> arr = new List<char>();
-            char[] EOLChar = this.configuration.LineDelimiter.ToCharArray();
+            char[] EOLChar = this.configuration.LineSeparator.ToCharArray();
 
             if (sr.EndOfStream)
             {
@@ -112,7 +112,7 @@ namespace Dbarone.Net.Csv
                 // If we're processing multiple lines, need to add line delimiter to the current field value.
                 if (this.LinesLastProcessed > 0)
                 {
-                    field += this.configuration.LineDelimiter;
+                    field += this.configuration.LineSeparator;
                 }
 
                 // Read next line from stream
@@ -129,15 +129,15 @@ namespace Dbarone.Net.Csv
 
                     do
                     {
-                        if (IsEscapedFieldStarted && sp.Match(configuration.FieldEscapeCharacter))
+                        if (IsEscapedFieldStarted && sp.Match(configuration.FieldEscape))
                         {
                             hasReadData = true;
 
                             // match another text delimiter immediately after previous text delimiter, i.e. "" - treat as escaped text delimiter.
-                            if (sp.Match(configuration.FieldEscapeCharacter))
+                            if (sp.Match(configuration.FieldEscape))
                             {
                                 // another text delimiter means treat as text in value
-                                field += configuration.FieldEscapeCharacter;
+                                field += configuration.FieldEscape;
                             }
                             else
                             {
@@ -145,7 +145,7 @@ namespace Dbarone.Net.Csv
                                 IsEscapedFieldStarted = false;
                             }
                         }
-                        else if (!IsEscapedFieldStarted && sp.Match(configuration.FieldEscapeCharacter))
+                        else if (!IsEscapedFieldStarted && sp.Match(configuration.FieldEscape))
                         {
                             hasReadData = true;
 

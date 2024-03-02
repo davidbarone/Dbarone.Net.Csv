@@ -86,7 +86,7 @@ zzz,yyy,xxx
         {
             CsvConfiguration configuration = new CsvConfiguration
             {
-                LineDelimiter = lineDelimiter ?? Environment.NewLine
+                LineSeparator = lineDelimiter ?? Environment.NewLine
             };
 
             if (!hasHeader)

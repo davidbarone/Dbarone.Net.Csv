@@ -9,26 +9,26 @@ public class TokeniserTests
     [Theory]
     [InlineData("aaa;;bbb", ";;", "aaa", "bbb")]
     [InlineData("aaa;;bbb;;ccc", ";;", "aaa", "bbb")]
-    public void TestGetLine(string input, string lineDelimiter, string expectedLine1, string? expectedLine2)
+    public void TestGetLine(string input, string lineSeparator, string expected1, string? expected2)
     {
         CsvConfiguration configuration = new CsvConfiguration
         {
-            LineDelimiter = lineDelimiter
+            LineSeparator = lineSeparator
         };
         byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(input);
         MemoryStream stream = new MemoryStream(byteArray);
         StreamReader sr = new StreamReader(stream);
 
         Tokeniser tokeniser = new Tokeniser(configuration);
-        if (!string.IsNullOrEmpty(expectedLine1))
+        if (!string.IsNullOrEmpty(expected1))
         {
-            var actualLine1 = tokeniser.GetLine(sr);
-            Assert.Equal(expectedLine1, actualLine1);
+            var actual1 = tokeniser.GetLine(sr);
+            Assert.Equal(expected1, actual1);
         }
-        if (!string.IsNullOrEmpty(expectedLine2))
+        if (!string.IsNullOrEmpty(expected2))
         {
-            var actualLine2 = tokeniser.GetLine(sr);
-            Assert.Equal(expectedLine2, actualLine2);
+            var actual2 = tokeniser.GetLine(sr);
+            Assert.Equal(expected2, actual2);
         }
     }
 

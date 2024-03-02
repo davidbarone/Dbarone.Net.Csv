@@ -66,7 +66,7 @@ namespace Dbarone.Net.Csv
                                 }
                                 sw.Write(string.Join(this.Configuration.FieldSeparator, headers));
                             }
-                            sw.Write(this.Configuration.LineDelimiter);
+                            sw.Write(this.Configuration.LineSeparator);
                         }
 
                         if (headers == null)
@@ -81,25 +81,31 @@ namespace Dbarone.Net.Csv
                             throw new CsvException($"Row [$record] contains invalid key.");
                         }
 
-                        var delimiter = "";
+                        char? delimiter = null;
                         // Write data
-                        foreach (var key in rowKeys)
+                        foreach (var key in headers)
                         {
-                            sw.Write(delimiter);
+                            if (delimiter.HasValue)
+                            {
+                                sw.Write(delimiter);
+                            }
+                            delimiter = this.Configuration.FieldSeparator;
                             string value = row[key] ?? "";
                             if (
-                                value.Contains(this.Configuration.LineDelimiter) ||
-                                (this.Configuration.FieldEscapeCharacter.HasValue && value.Contains(this.Configuration.FieldEscapeCharacter.Value)) ||
+                                value.Contains(this.Configuration.LineSeparator) ||
+                                (value.Contains(this.Configuration.FieldEscape)) ||
                                 value.Contains(this.Configuration.FieldSeparator))
                             {
-                                value = $"{this.Configuration.FieldEscapeCharacter}{value.Replace($"{this.Configuration.FieldEscapeCharacter}", $"{this.Configuration.FieldEscapeCharacter}{this.Configuration.FieldEscapeCharacter}")}{this.Configuration.FieldEscapeCharacter}";
+                                value = $"{this.Configuration.FieldEscape}{value.Replace($"{this.Configuration.FieldEscape}", $"{this.Configuration.FieldEscape}{this.Configuration.FieldEscape}")}{this.Configuration.FieldEscape}";
                             }
+                            sw.Write(value);
                         }
-                        sw.Write(this.Configuration.LineDelimiter);
+                        sw.Write(this.Configuration.LineSeparator);
                     }
                 }
                 finally
                 {
+                    sw.Flush();
                     sw.Close();
                 }
             }
