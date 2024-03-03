@@ -20,11 +20,11 @@ The `Read()` method will `yield` records. Note that if you want to read the enti
 ## Configuration
 By default, the CsvReader and CsvWriter class use the following defaults:
 
-| Item            | Value                              |
-| --------------- | ---------------------------------- |
-| Field Separator | ,                                  |
-| Field Escape    | "                                  |
-| Line Separator  | LF on Linux, CRLF on other systems |
+| Item            | Value                                     |
+| --------------- | ----------------------------------------- |
+| Field Separator | ,                                         |
+| Field Escape    | "                                         |
+| Line Separator  | LF on Unix systems, CRLF on other systems |
 
 However, these settings can be configured in the `CsvConfiguration` object which is passed in the constructor to the `CsvReader` or `CsvWriter`. The following configuration is available:
 
@@ -32,7 +32,7 @@ However, these settings can be configured in the `CsvConfiguration` object which
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | FieldSeparator    | Sets the field separator character. Defaults to ','                                                                                |
 | FieldEscape       | Sets the field escape character. Defaults to '"'                                                                                   |
-| LineSeparator     | Sets the line separator string. Defaults to LF on Linux, CRLF on other systems.                                                    |
+| LineSeparator     | Sets the line separator string. Defaults to LF on Unix systems, CRLF on other systems.                                             |
 | HasHeader         | Set to true if the csv file has headers. If no headers are present, headers 'Column1', 'Column2',... will be generated             |
 | Headers           | Used to override the headers in the file or data.                                                                                  |
 | Culture           | Sets the `CultureInfo` instance to define how values are formatted to / from strings                                               |
