@@ -55,6 +55,6 @@ Csv files can be created using the `CsvWriter` class. The `Write()` method will 
 ```
 
 ## Reading Csv Files to Strong-Typed objects
-This library deals purely with parsing of CSV files. Csv files by nature are only text, and have not built-in information about types. This is why the `Read()` method returns a sequence of `StringDictionary` objects. If you need to map these values into a class or other strong-typed structure, you can use the `Dbarone.Net.Mapper` library in conjunction with this library.
+This library deals purely with parsing of CSV files. Csv files by nature are only text, and have no built-in information about types. This is why the `Read()` method returns a sequence of `StringDictionary` objects. It does not make any assumptions about the type of data being read. If you need to map the values into a class or other strong-typed structure, you can use the `Dbarone.Net.Mapper` library in conjunction with this library.
 
 --- d.barone 3-Mar-2024 ---
