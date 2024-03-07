@@ -21,8 +21,9 @@ namespace Dbarone.Net.Csv
         Stream Stream { get; set; }
 
         /// <summary>
-        /// Creates a new configured CsvReader instance.
+        /// Creates a new configured CsvReader instance from a stream and configueration.
         /// </summary>
+        /// <param name="stream">The csv stream to read.</param>
         /// <param name="configuration">The csv configuration.</param>
         public CsvReader(Stream stream, CsvConfiguration configuration)
         {
@@ -31,8 +32,9 @@ namespace Dbarone.Net.Csv
         }
 
         /// <summary>
-        /// Creates a new CsvReader instance with default configuration.
+        /// Creates a new configured CsvReader instance from a stream.
         /// </summary>
+        /// <param name="stream">The csv stream to read.</param>
         public CsvReader(Stream stream)
         {
             this.Stream = stream;

@@ -11,18 +11,28 @@ namespace Dbarone.Net.Csv
     {
         CsvConfiguration configuration;
 
+        /// <summary>
+        /// Is set to true if the underlying stream is at end of stream.
+        /// </summary>
         public bool IsEOF { get; set; }
+
+        /// <summary>
+        /// Returns the number of lines processed by the immediately previous Tokenise() method call.
+        /// </summary>
         public int LinesLastProcessed { get; set; }
 
         /// <summary>
-        /// Initialises a new Tokeniser instance from a string input and configuration.
+        /// Initialises a new Tokeniser instance from a configuration.
         /// </summary>
-        /// <param name="str">The input string.</param>
+        /// <param name="configuration">The configuration.</param>
         public Tokeniser(CsvConfiguration configuration)
         {
             this.configuration = configuration;
         }
 
+        /// <summary>
+        /// Initialises a new Tokeniser instance.
+        /// </summary>
         public Tokeniser()
         {
             this.configuration = new CsvConfiguration();
@@ -33,7 +43,6 @@ namespace Dbarone.Net.Csv
         /// The Read() method of StringReader only recognises standard end of line markers line CRLF and LF.
         /// </summary>
         /// <param name="sr">The StreamReader instance.</param>
-        /// <param name="lineDelimiter">The end of line marker.</param>
         /// <returns>Returns 1 line of characters up to the end of line marker (or end of stream).</returns>
         public string? GetLine(StreamReader sr)
         {
@@ -90,10 +99,13 @@ namespace Dbarone.Net.Csv
             }
         }
 
+
         /// <summary>
         /// Gets the tokens on the next record. Note that this may read more than 1 line of the file.
         /// </summary>
+        /// <param name="sr">The input stream reader.</param>
         /// <returns>Returns a string array of tokens</returns>
+        /// <exception cref="CsvException">Throws an exception in certain error conditions.</exception>
         public string[]? Tokenise(StreamReader sr)
         {
             if (sr == null)

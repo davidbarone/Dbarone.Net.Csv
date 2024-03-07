@@ -21,8 +21,9 @@ namespace Dbarone.Net.Csv
         Stream Stream { get; set; }
 
         /// <summary>
-        /// Creates a new configured CsvWriter instance.
+        /// Creates a new configured CsvWriter instance from a stream and configuration.
         /// </summary>
+        /// <param name="stream">The csv stream to write to.</param>
         /// <param name="configuration">The csv configuration.</param>
         public CsvWriter(Stream stream, CsvConfiguration configuration)
         {
@@ -31,8 +32,9 @@ namespace Dbarone.Net.Csv
         }
 
         /// <summary>
-        /// Creates a new CsvWriter instance with default configuration.
+        /// Creates a new configured CsvWriter instance from a stream.
         /// </summary>
+        /// <param name="stream">The csv stream to write to.</param>
         public CsvWriter(Stream stream)
         {
             this.Stream = stream;
