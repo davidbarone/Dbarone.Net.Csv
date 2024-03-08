@@ -45,12 +45,8 @@ public class CsvConfiguration
     public InvalidRowDelegate? InvalidRowHandler { get; set; } = CsvConfiguration.DefaultInvalidRowHandler;
 
     /// <summary>
-    /// <see cref="InvalidRowDelegate"> to ignore blank records.
+    /// InvalidRowDelegate to ignore blank rows in the Csv file.
     /// </summary>
-    /// <param name="record">The record number.</param>
-    /// <param name="headers">The header array.</param>
-    /// <param name="tokens">The record token array.</param>
-    /// <returns>Returns a modified token array, or null if the record is to be ignored.</returns>
     public static InvalidRowDelegate IgnoreBlankRowsHandler = (int record, string[] headers, ref string[]? tokens) =>
     {
         if (tokens!.Length == 1 && tokens[0] == "")
