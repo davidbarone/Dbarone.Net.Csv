@@ -39,7 +39,7 @@ However, these settings can be configured in the `CsvConfiguration` object which
 | InvalidRowHandler | You can define a custom callback function to process invalid data rows (including empty lines) that may be read from the csv file. |
 
 ## CsvWriter
-Csv files can be created using the `CsvWriter` class. The `Write()` method will write a sequence of StringDictionary objects to a stream.
+Csv files can be created using the `CsvWriter` class. The `Write()` method will write a sequence of `IDictionary<string, object>` objects to a stream.
 
 ``` c#
     IEnumerable<Dictionary<string, object>> data = new IEnumerable<Dictionary<string, object>>();
