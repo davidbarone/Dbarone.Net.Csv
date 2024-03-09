@@ -8,8 +8,11 @@
   - [HasHeader](#dbaronenetcsvcsvconfigurationhasheader)
   - [Culture](#dbaronenetcsvcsvconfigurationculture)
   - [Headers](#dbaronenetcsvcsvconfigurationheaders)
-  - [InvalidRowHandler](#dbaronenetcsvcsvconfigurationinvalidrowhandler)
-  - [DefaultInvalidRowHandler](#dbaronenetcsvcsvconfigurationdefaultinvalidrowhandler)
+  - [ProcessRowErrorHandler](#dbaronenetcsvcsvconfigurationprocessrowerrorhandler)
+  - [ProcessRowHandler](#dbaronenetcsvcsvconfigurationprocessrowhandler)
+  - [RowProcessIgnoreBlank](#dbaronenetcsvcsvconfigurationrowprocessignoreblank)
+  - [RowProcessError](#dbaronenetcsvcsvconfigurationrowprocesserror)
+  - [RowProcessDefault](#dbaronenetcsvcsvconfigurationrowprocessdefault)
 - [CsvReader](#dbaronenetcsvcsvreader)
   - [#ctor](#dbaronenetcsvcsvreader#ctor(systemiostream,dbaronenetcsvcsvconfiguration))
   - [#ctor](#dbaronenetcsvcsvreader#ctor(systemiostream))
@@ -17,8 +20,8 @@
 - [CsvWriter](#dbaronenetcsvcsvwriter)
   - [#ctor](#dbaronenetcsvcsvwriter#ctor(systemiostream,dbaronenetcsvcsvconfiguration))
   - [#ctor](#dbaronenetcsvcsvwriter#ctor(systemiostream))
-  - [Write](#dbaronenetcsvcsvwriterwrite(systemcollectionsgenericienumerable{systemcollectionsspecializedstringdictionary}))
-- [InvalidRowDelegate](#dbaronenetcsvinvalidrowdelegate)
+  - [Write](#dbaronenetcsvcsvwriterwrite(systemcollectionsgenericienumerable{systemcollectionsgenericidictionary{systemstring,systemobject}}))
+- [ProcessRowDelegate](#dbaronenetcsvprocessrowdelegate)
 - [StringParser](#dbaronenetcsvstringparser)
   - [#ctor](#dbaronenetcsvstringparser#ctor(systemstring))
   - [Match](#dbaronenetcsvstringparsermatch(systemnullable{systemchar}))
@@ -33,6 +36,7 @@
   - [GetLine](#dbaronenetcsvtokenisergetline(systemiostreamreader))
   - [Tokenise](#dbaronenetcsvtokenisertokenise(systemiostreamreader))
 - [CsvException](#csvexception)
+  - [#ctor](#csvexception#ctor(systemstring))
 
 
 
@@ -82,15 +86,33 @@ None
 
 
 <small>[Back to top](#top)</small>
->### <a id='dbaronenetcsvcsvconfigurationinvalidrowhandler'></a>property: InvalidRowHandler
+>### <a id='dbaronenetcsvcsvconfigurationprocessrowerrorhandler'></a>property: ProcessRowErrorHandler
 #### Summary
  Callback function for processing of invalid data rows. 
 
 
 <small>[Back to top](#top)</small>
->### <a id='dbaronenetcsvcsvconfigurationdefaultinvalidrowhandler'></a>field: DefaultInvalidRowHandler
+>### <a id='dbaronenetcsvcsvconfigurationprocessrowhandler'></a>property: ProcessRowHandler
 #### Summary
- Default invalid row handler. 
+ Callback function for process a data row 
+
+
+<small>[Back to top](#top)</small>
+>### <a id='dbaronenetcsvcsvconfigurationrowprocessignoreblank'></a>field: RowProcessIgnoreBlank
+#### Summary
+ InvalidRowDelegate to ignore blank rows in the Csv file. 
+
+
+<small>[Back to top](#top)</small>
+>### <a id='dbaronenetcsvcsvconfigurationrowprocesserror'></a>field: RowProcessError
+#### Summary
+ Row handler that errors on each row. 
+
+
+<small>[Back to top](#top)</small>
+>### <a id='dbaronenetcsvcsvconfigurationrowprocessdefault'></a>field: RowProcessDefault
+#### Summary
+ Default row handler that does no proessing, but leaves the values as is. 
 
 
 <small>[Back to top](#top)</small>
@@ -228,10 +250,10 @@ None
 None
 
 <small>[Back to top](#top)</small>
->### <a id='dbaronenetcsvcsvwriterwrite(systemcollectionsgenericienumerable{systemcollectionsspecializedstringdictionary})'></a>method: Write
+>### <a id='dbaronenetcsvcsvwriterwrite(systemcollectionsgenericienumerable{systemcollectionsgenericidictionary{systemstring,systemobject}})'></a>method: Write
 #### Signature
 ``` c#
-CsvWriter.Write(System.Collections.Generic.IEnumerable<System.Collections.Specialized.StringDictionary> data)
+CsvWriter.Write(System.Collections.Generic.IEnumerable<System.Collections.Generic.IDictionary<System.String,System.Object>> data)
 ```
 #### Summary
  Writes a csv file. 
@@ -254,11 +276,11 @@ None
 <small>[Back to top](#top)</small>
 
 ---
->## <a id='dbaronenetcsvinvalidrowdelegate'></a>type: InvalidRowDelegate
+>## <a id='dbaronenetcsvprocessrowdelegate'></a>type: ProcessRowDelegate
 ### Namespace:
 `Dbarone.Net.Csv`
 ### Summary
- Delegate for invalid row processing. 
+ Delegate for row processing. Allows the tokens to be checked or modified before being returned by the library. Set the tokens variable to null to ignore the row. 
 
 ### Type Parameters:
 None
@@ -486,3 +508,25 @@ None
 ### Type Parameters:
 None
 
+>### <a id='csvexception#ctor(systemstring)'></a>method: #ctor
+#### Signature
+``` c#
+CsvException.#ctor(System.String message)
+```
+#### Summary
+ Creates a new CsvException instance. 
+
+#### Type Parameters:
+None
+
+#### Parameters:
+|Name | Description |
+|-----|------|
+|message: |The error message.|
+
+#### Exceptions:
+None
+#### Examples:
+None
+
+<small>[Back to top](#top)</small>
