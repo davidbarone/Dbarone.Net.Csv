@@ -1,5 +1,6 @@
 using System.Diagnostics.Contracts;
 using System.Globalization;
+using System.Net.NetworkInformation;
 
 namespace Dbarone.Net.Csv;
 
@@ -42,17 +43,22 @@ public class CsvConfiguration
     /// <summary>
     /// Callback function for processing of invalid data rows.
     /// </summary>
-    public InvalidRowDelegate? InvalidRowHandler { get; set; } = CsvConfiguration.DefaultInvalidRowHandler;
+    public ProcessRowDelegate ProcessRowErrorHandler { get; set; } = CsvConfiguration.RowProcessError;
+
+    /// <summary>
+    /// Callback function for process a data row
+    /// </summary>
+    public ProcessRowDelegate ProcessRowHandler { get; set; } = CsvConfiguration.RowProcessDefault;
 
     /// <summary>
     /// InvalidRowDelegate to ignore blank rows in the Csv file.
     /// </summary>
-    public static InvalidRowDelegate IgnoreBlankRowsHandler = (int record, string[] headers, ref string[]? tokens) =>
+    public static ProcessRowDelegate RowProcessIgnoreBlank = (int record, string[] headers, ref object[]? values) =>
     {
-        if (tokens!.Length == 1 && tokens[0] == "")
+        if (values!.Length == 1 && (string)values[0] == "")
         {
             // ignore blank rows
-            tokens = null;
+            values = null;
             return true;
         }
         else
@@ -62,7 +68,12 @@ public class CsvConfiguration
     };
 
     /// <summary>
-    /// Default invalid row handler.
+    /// Row handler that errors on each row.
     /// </summary>
-    public static InvalidRowDelegate DefaultInvalidRowHandler = (int record, string[] headers, ref string[]? tokens) => false;
+    public static ProcessRowDelegate RowProcessError = (int record, string[] headers, ref object[]? values) => false;
+
+    /// <summary>
+    /// Default row handler that does no proessing, but leaves the values as is.
+    /// </summary>
+    public static ProcessRowDelegate RowProcessDefault = (int record, string[] headers, ref object[]? values) => true;
 }

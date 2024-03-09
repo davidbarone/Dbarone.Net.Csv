@@ -44,9 +44,9 @@ namespace Dbarone.Net.Csv
         /// <summary>
         /// Reads a csv file.
         /// </summary>
-        /// <returns>Parses the csv file and returns a StringDictionary object for each row.</returns>
+        /// <returns>Parses the csv file and returns a dictionary object for each row.</returns>
         /// <exception cref="CsvException">Throws an exception under various error conditions.</exception>
-        public IEnumerable<StringDictionary> Read()
+        public IEnumerable<IDictionary<string, object>> Read()
         {
             using (StreamReader sr = new StreamReader(this.Stream))
             {
@@ -97,30 +97,48 @@ namespace Dbarone.Net.Csv
                             fieldCount = headers.Length;
                         }
 
-                        // process data: where record > 1 or file doesn't have header
-                        if (!(record == 1 && this.Configuration.HasHeader))
+                        // process data
+                        // where record > 1 or file doesn't have header
+                        if (tokens is not null && !(record == 1 && this.Configuration.HasHeader))
                         {
                             // For data rows, check field count matches header count
-                            if (tokens.Length != headers!.Length)
+                            object[]? values = tokens;
+                            if (values is not null)
                             {
-                                var handler = this.Configuration.InvalidRowHandler ?? CsvConfiguration.DefaultInvalidRowHandler;
-
-                                if (!handler(record, headers, ref tokens))
+                                if (tokens.Length != headers!.Length)
                                 {
-                                    throw new CsvException($"Column mismatch at record {record}. Fields = {tokens.Length}, Headers = {headers.Length}.");
+                                    var handler = this.Configuration.ProcessRowErrorHandler ?? CsvConfiguration.RowProcessError;
+
+                                    if (!handler(record, headers, ref values))
+                                    {
+                                        throw new CsvException($"Column mismatch at record {record}. Fields = {tokens.Length}, Headers = {headers.Length}.");
+                                    }
                                 }
-                            }
 
-                            // return a StringDictionary
-                            if (tokens != null)
-                            {
-                                StringDictionary sd = new StringDictionary();
+                                // return a StringDictionary
+                                var processRowHandler = this.Configuration.ProcessRowHandler ?? CsvConfiguration.RowProcessDefault;
 
-                                for (int f = 0; f < tokens.Length; f++)
+                                if (!processRowHandler(record, headers, ref values))
                                 {
-                                    sd[headers[f]] = tokens[f];
+                                    throw new CsvException($"Exception thrown at record: {record}.");
                                 }
-                                yield return sd;
+
+                                if (values != null)
+                                {
+                                    if (headers.Count() != values.Length)
+                                    {
+                                        throw new CsvException($"Values count mismatch at record {record}.");
+                                    }
+
+                                    Dictionary<string, object> dict = new Dictionary<string, object>();
+                                    for (int i = 0; i < values.Length; i++)
+                                    {
+                                        dict[headers[i]] = tokens[i];
+                                    }
+
+                                    // Allow text values to be transformed
+                                    yield return dict;
+                                }
                             }
                         }
                     }

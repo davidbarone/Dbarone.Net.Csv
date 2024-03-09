@@ -71,7 +71,7 @@ zzz,yyy,xxx
         //byte[] byteArray = Encoding.ASCII.GetBytes(contents);
         MemoryStream stream = new MemoryStream(byteArray);
 
-        CsvReader csv = new CsvReader(stream, new CsvConfiguration { InvalidRowHandler = CsvConfiguration.IgnoreBlankRowsHandler });
+        CsvReader csv = new CsvReader(stream, new CsvConfiguration { ProcessRowErrorHandler = CsvConfiguration.RowProcessIgnoreBlank });
         var results = csv.Read().ToList();
 
         Assert.Equal(expectedColumns, results.First().Count);
@@ -94,7 +94,7 @@ zzz,yyy,xxx
                 configuration.HasHeader = hasHeader;
             }
             configuration.Headers = headers;
-            configuration.InvalidRowHandler = CsvConfiguration.IgnoreBlankRowsHandler;
+            configuration.ProcessRowErrorHandler = CsvConfiguration.RowProcessIgnoreBlank;
 
             CsvReader csv = new CsvReader(fs, configuration);
             var results = csv.Read().ToList();
