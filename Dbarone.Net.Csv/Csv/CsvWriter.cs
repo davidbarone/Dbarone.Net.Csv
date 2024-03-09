@@ -46,7 +46,7 @@ namespace Dbarone.Net.Csv
         /// </summary>
         /// <param name="data">The data to write.</param>
         /// <exception cref="CsvException">Throws an exception under various error conditions.</exception>
-        public void Write(IEnumerable<StringDictionary> data)
+        public void Write(IEnumerable<IDictionary<string, object>> data)
         {
             using (StreamWriter sw = new StreamWriter(this.Stream))
             {
@@ -92,7 +92,7 @@ namespace Dbarone.Net.Csv
                                 sw.Write(delimiter);
                             }
                             delimiter = this.Configuration.FieldSeparator;
-                            string value = row[key] ?? "";
+                            string value = row[key] != null ? (row[key].ToString() ?? "") : "";
                             if (
                                 value.Contains(this.Configuration.LineSeparator) ||
                                 (value.Contains(this.Configuration.FieldEscape)) ||

@@ -14,37 +14,37 @@ namespace Dbarone.Net.Csv.Tests;
 public class CsvWriterTests
 {
 
-    public IEnumerable<StringDictionary> GetMultilineRecord(string lineSeparator)
+    public IEnumerable<IDictionary<string, object>> GetMultilineRecord(string lineSeparator)
     {
-        StringDictionary sd = new StringDictionary();
-        sd.Add("foo", $"123{lineSeparator}aaa");
-        sd.Add("bar", "456");
-        sd.Add("baz", "789");
-        yield return sd;
+        Dictionary<string, object> dict = new Dictionary<string, object>();
+        dict.Add("foo", $"123{lineSeparator}aaa");
+        dict.Add("bar", "456");
+        dict.Add("baz", "789");
+        yield return dict;
     }
 
-    public IEnumerable<StringDictionary> GetOneRecord()
+    public IEnumerable<IDictionary<string, object>> GetOneRecord()
     {
-        StringDictionary sd = new StringDictionary();
-        sd.Add("foo", "123");
-        sd.Add("bar", "456");
-        sd.Add("baz", "789");
-        yield return sd;
+        Dictionary<string, object> dict = new Dictionary<string, object>();
+        dict.Add("foo", "123");
+        dict.Add("bar", "456");
+        dict.Add("baz", "789");
+        yield return dict;
     }
 
-    public IEnumerable<StringDictionary> GetTwoRecords()
+    public IEnumerable<IDictionary<string, object>> GetTwoRecords()
     {
-        StringDictionary sd = new StringDictionary();
-        sd.Add("foo", "123");
-        sd.Add("bar", "456");
-        sd.Add("baz", "789");
-        yield return sd;
+        Dictionary<string, object> dict = new Dictionary<string, object>();
+        dict.Add("foo", "123");
+        dict.Add("bar", "456");
+        dict.Add("baz", "789");
+        yield return dict;
 
-        sd = new StringDictionary();
-        sd.Add("foo", "aaa");
-        sd.Add("bar", "bbb");
-        sd.Add("baz", "ccc");
-        yield return sd;
+        dict = new Dictionary<string, object>();
+        dict.Add("foo", "aaa");
+        dict.Add("bar", "bbb");
+        dict.Add("baz", "ccc");
+        yield return dict;
     }
 
     [Theory]
