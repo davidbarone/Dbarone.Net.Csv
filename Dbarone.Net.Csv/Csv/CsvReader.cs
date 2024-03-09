@@ -102,7 +102,8 @@ namespace Dbarone.Net.Csv
                         if (tokens is not null && !(record == 1 && this.Configuration.HasHeader))
                         {
                             // For data rows, check field count matches header count
-                            object[]? values = tokens;
+                            object[]? values = new object[tokens.Length];
+                            Array.Copy(tokens, values, tokens.Length);
                             if (values is not null)
                             {
                                 if (tokens.Length != headers!.Length)
@@ -133,7 +134,7 @@ namespace Dbarone.Net.Csv
                                     Dictionary<string, object> dict = new Dictionary<string, object>();
                                     for (int i = 0; i < values.Length; i++)
                                     {
-                                        dict[headers[i]] = tokens[i];
+                                        dict[headers[i]] = values[i];
                                     }
 
                                     // Allow text values to be transformed

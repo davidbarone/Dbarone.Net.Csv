@@ -78,6 +78,33 @@ zzz,yyy,xxx
         Assert.Equal(expectedRecords, results.Count());
     }
 
+    [Fact]
+    public void TestRowProcessDelegate()
+    {
+        // Csv File
+        var csvFile = @"field_name1,field_name2,field_name3
+123,bbb,ccc
+456,yyy,xxx";
+
+        // convert string to stream
+        byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(csvFile);
+        //byte[] byteArray = Encoding.ASCII.GetBytes(contents);
+        MemoryStream stream = new MemoryStream(byteArray);
+
+        ProcessRowDelegate mapColumn = (int record, string[] headers, ref object[]? values) =>
+        {
+            int newValue = int.Parse((string)values![0]);
+            values[0] = newValue;
+            return true;
+        };
+
+        CsvReader csv = new CsvReader(stream, new CsvConfiguration { ProcessRowHandler = mapColumn });
+        var results = csv.Read().ToList();
+
+        Assert.Equal(2, results.Count());
+        Assert.Equal(123, results.First()["field_name1"]);
+        Assert.IsType<int>(results.First()["field_name1"]);
+    }
 
     [Theory, MemberData(nameof(Datasets))]
     public void TestDatasets(string file, bool hasHeader, int expectedRecords, string? lineDelimiter = null, string[]? headers = null)
