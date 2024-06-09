@@ -1,3 +1,5 @@
+namespace Dbarone.Net.Csv;
+
 /// <summary>
 /// Exception class used for all exceptions in Dbarone.Net.Csv.
 /// </summary>

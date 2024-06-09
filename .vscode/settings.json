@@ -1,0 +1,7 @@
+{
+    "commentario.allowOverwrite": true,
+    "commentario.assemblyPath": "${workspaceFolder}/Dbarone.Net.Csv/bin/debug/net8.0/Dbarone.Net.Csv.dll",
+    "commentario.outputPath": "${workspaceFolder}/Dbarone.Net.Csv.html",
+    "commentario.readMePath": "",
+    "commentario.xmlCommentsPath": "${workspaceFolder}/Dbarone.Net.Csv/bin/debug/net8.0/Dbarone.Net.Csv.xml"
+}

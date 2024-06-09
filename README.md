@@ -71,4 +71,6 @@ This library deals purely with parsing of CSV files. Csv files by nature are onl
 
 To map records to classes, you can use the `Dbarone.Net.Mapper` library in conjunction with this library.
 
+The API reference documentation can be found here: [Dbarone.Net.Csv.html](https://html-preview.github.io/?url=https://github.com/davidbarone/Dbarone.Net.Csv/blob/main/Dbarone.Net.Csv.html).
+
 --- d.barone 3-Mar-2024 ---

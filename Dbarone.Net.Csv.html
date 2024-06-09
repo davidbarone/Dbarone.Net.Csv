@@ -1,0 +1,2918 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Commentario: Dbarone.Net.Csv</title>
+
+        <style type="text/css">
+            
+
+/* https://goodpalette.io */
+:root {
+
+    /* Primary: Blue Blue */
+    --primary-100: #F3F2FF;
+    --primary-200: #C0C0FE;
+    --primary-300: #8B91F9;
+    --primary-400: #5565E9;
+    --primary-500: #233FCC;
+    --primary-600: #0C2EA3;
+    --primary-700: #032479;
+    --primary-800: #001B50;
+    --primary-900: #000F26;
+
+    /* Accent: Jaffa */
+    --accent-100: #FFF9F2;
+    --accent-200: #FFE4C8;
+    --accent-300: #FBC89D;
+    --accent-400: #F3A470;
+    --accent-500: #E37944;
+    --accent-600: #B44921;
+    --accent-700: #852A11;
+    --accent-800: #551509;
+    --accent-900: #260704;
+
+    /* Neutral */
+    --neutral-100: #FAFAFC;
+    --neutral-200: #EAEAEF;
+    --neutral-300: #DADAE2;
+    --neutral-400: #CACBD4;
+    --neutral-500: #BBBDC7;
+    --neutral-600: #94969F;
+    --neutral-700: #6D7077;
+    --neutral-800: #474A4E;
+    --neutral-900: #222426;
+
+    --white: #fff;
+}
+
+/* -----------------------------------------------
+Base Styles
+-------------------------------------------------- */
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--neutral-900);
+    overflow-y: scroll;
+    font-size: 0.9em;
+}
+
+div.toc {
+    background-color: var(--primary-200);
+    border: 1px solid var(--primary-500);
+    border-radius: 4px;
+    margin: 4px 0px;
+    padding: 0px;
+}
+
+div.toc-inner {
+    margin: 4px;
+}
+
+div.type {
+    background-color: var(--accent-200);
+    border: 1px solid var(--accent-500);
+    border-radius: 4px;
+    margin: 4px 0px;
+    padding: 0px;
+}
+
+div.type-inner {
+    margin: 4px;
+}
+
+div.member {
+    background-color: var(--neutral-200);
+    border: 1px solid var(--neutral-500);
+    border-radius: 4px;
+    margin: 4px 0px;
+    padding: 0px;
+}
+
+div.member-inner {
+    margin: 4px;
+}
+
+/* ------------------------------------
+Typography
+--------------------------------------- */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 2.0em;
+    display: block;
+    background: var(--primary-300);
+    border: 1px solid var(--primary-700);
+    border-left: 2em solid var(--primary-700);
+    border-right: 2em solid var(--primary-700);
+    padding: 24px 6px;
+    border-radius: 4px;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+h3 {
+    font-size: 1.6em;
+    margin: 1em 0em 0em 0em;
+}
+
+div.toc h2  {
+    border-left: 2.0em solid var(--primary-500);
+    display: block;
+    padding: 12px 2px 12px 12px;
+    background-color: var(--primary-300);
+    margin: 0px;
+}
+
+div.toc h3 {
+    color: var(--primary-500);
+}
+
+div.type h2  {
+    border-left: 2.0em solid var(--accent-500);
+    display: block;
+    padding: 12px 2px 12px 12px;
+    background-color: var(--accent-300);
+    margin: 0px;
+}
+
+div.type h3 {
+    color: var(--accent-500);
+}
+
+div.member h2  {
+    border-left: 2.0em solid var(--primary-500);
+    display: block;
+    padding: 12px 2px 12px 12px;
+    background-color: var(--primary-300);
+    margin: 0px;
+}
+
+div.member h3 {
+    color: var(--primary-500);
+}
+
+/* -----------------------------------
+Links
+-------------------------------------- */
+
+a {
+    color: var(--accent-700);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--accent-700);
+    text-decoration: underline;
+}
+
+/* ---------------------------------------------
+Lists
+------------------------------------------------ */
+
+ol, ul {
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 0.5em;
+}
+
+ul {
+    list-style: disc inside;
+}
+
+ol {
+    list-style: decimal inside;
+}
+
+/* ---------------------------------------------
+Code / Pre
+------------------------------------------------ */
+
+pre code {
+    background-color: var(--white);
+    border: 1px solid var(--neutral-700);
+    border-left: 6px solid var(--accent-700);
+    color: var(--neutral-900);
+    page-break-inside: avoid;
+    font: "Courier New", Courier, Monospace;
+    max-width: 100%;
+    padding: 2em 1em;
+    display: inline-block;
+    word-wrap: break-word;
+    overflow: auto;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    font-weight: 500;
+}
+
+code {
+    font-weight: bold;
+    background-color: var(--neutral-500);
+    padding: 2px;
+}
+
+/* ---------------------------------------------
+Tables
+------------------------------------------------ */
+
+div.table {
+    border: 1px solid var(--primary-700);
+    display: inline-block;
+    border-radius: 4px;
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    padding: 0px;
+}
+
+th,
+td {
+    padding: 6px 24px;
+    text-align: left;
+    margin: 0px;
+}
+
+th {
+    background-color: var(--primary-700);
+    color: var(--neutral-300);
+    font-weight: 500;
+}
+
+tr:nth-child(odd) {
+    background-color: var(--neutral-100);  
+}
+
+/* ---------------------------------------------
+Others
+------------------------------------------------ */
+
+.tag {
+    background-color: var(--neutral-700);
+    color: var(--neutral-200);
+    border-radius: 4px;
+    padding: 4px;
+    text-shadow: 2px 2px 5px var(--neutral-900);
+}
+
+.footer {
+    margin: 1em 0em;
+    font-style: italic;
+    font-size: small;
+}
+
+/* ---------------------------------------------
+Spacing
+------------------------------------------------ */
+
+blockquote,
+dl,
+figure,
+table,
+p,
+ul,
+ol,
+{
+    margin-top: 0em;
+    margin-bottom: .5em;
+}
+        </style>
+
+        <!-- https://highlightjs.org/#usage -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <!-- and it's easy to individually load additional languages -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+    </head>
+
+    <body id="top">
+
+        <h1>Dbarone.Net.Csv, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null</h1>
+        
+
+        <div class="toc">
+            <h2>Table of Contents</h2>
+            <div class="toc-inner">
+                
+<h3>Classes</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Namespace</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#T:Dbarone.Net.Csv.CsvConfiguration">CsvConfiguration</a></td><td>Dbarone.Net.Csv</td><td>
+            Provides configuration for a CsvParser.
+            </td></tr><tr><td><a href="#T:Dbarone.Net.Csv.CsvException">CsvException</a></td><td>Dbarone.Net.Csv</td><td>
+            Exception class used for all exceptions in Dbarone.Net.Csv.
+            </td></tr><tr><td><a href="#T:Dbarone.Net.Csv.CsvReader">CsvReader</a></td><td>Dbarone.Net.Csv</td><td>
+            Reads a csv file per https://datatracker.ietf.org/doc/html/rfc4180.
+            </td></tr><tr><td><a href="#T:Dbarone.Net.Csv.CsvWriter">CsvWriter</a></td><td>Dbarone.Net.Csv</td><td>
+            Writes a csv file per https://datatracker.ietf.org/doc/html/rfc4180.
+            </td></tr><tr><td><a href="#T:Dbarone.Net.Csv.ProcessRowDelegate">ProcessRowDelegate</a></td><td>Dbarone.Net.Csv</td><td>
+            Delegate for row processing. Allows the tokens to be checked or modified before being returned by the library. Set the tokens variable to null to ignore the row.
+            </td></tr><tr><td><a href="#T:Dbarone.Net.Csv.StringParser">StringParser</a></td><td>Dbarone.Net.Csv</td><td>
+            Provides parsing functions for a string similar to StreamReader.
+            </td></tr><tr><td><a href="#T:Dbarone.Net.Csv.Tokeniser">Tokeniser</a></td><td>Dbarone.Net.Csv</td><td>
+            Gets the csv tokens in a string.
+            </td></tr>
+        </tbody>
+    </table>
+</div>
+                
+                
+                
+            </div>
+        </div>
+
+        
+
+<div class="type">       
+    <h2 id="T:Dbarone.Net.Csv.CsvConfiguration">Class: CsvConfiguration</h2>
+    <div class="type-inner">
+        <a href="#top">Back to top</a>
+
+        
+        <h3>Definition:</h3>
+        <ul>
+            <li>Namespace: Dbarone.Net.Csv</li>
+            <li>Assembly: Dbarone.Net.Csv, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null</li>
+        </ul>
+        
+        
+        
+<h3>Base Class</h3>
+Object
+
+        
+
+        
+
+        
+<h3>Summary</h3>
+
+            Provides configuration for a CsvParser.
+            
+
+        
+        
+<h3>Constructors</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Parameters</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#M:Dbarone.Net.Csv.CsvConfiguration.#ctor">.ctor</a></td><td></td><td></td></tr>
+        </tbody>
+    </table>
+</div>
+        
+<h3>Fields</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Data Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#F:Dbarone.Net.Csv.CsvConfiguration.RowProcessDefault">RowProcessDefault</a></td><td><a href="#T:Dbarone.Net.Csv.ProcessRowDelegate">ProcessRowDelegate</a></td><td>
+            Default row handler that does no proessing, but leaves the values as is.
+            </td></tr><tr><td><a href="#F:Dbarone.Net.Csv.CsvConfiguration.RowProcessError">RowProcessError</a></td><td><a href="#T:Dbarone.Net.Csv.ProcessRowDelegate">ProcessRowDelegate</a></td><td>
+            Row handler that errors on each row.
+            </td></tr><tr><td><a href="#F:Dbarone.Net.Csv.CsvConfiguration.RowProcessIgnoreBlank">RowProcessIgnoreBlank</a></td><td><a href="#T:Dbarone.Net.Csv.ProcessRowDelegate">ProcessRowDelegate</a></td><td>
+            InvalidRowDelegate to ignore blank rows in the Csv file.
+            </td></tr>
+        </tbody>
+    </table>
+</div>
+        
+<h3>Properties</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Data Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#P:Dbarone.Net.Csv.CsvConfiguration.Culture">Culture</a></td><td>CultureInfo</td><td>
+            Gets / sets the culture. Defaults to InvariantCulture.
+            </td></tr><tr><td><a href="#P:Dbarone.Net.Csv.CsvConfiguration.FieldEscape">FieldEscape</a></td><td>Char</td><td>
+            Gets / sets an optional field escape character. Defaults to double-quote character (%x22) per rfc4180 specification
+            </td></tr><tr><td><a href="#P:Dbarone.Net.Csv.CsvConfiguration.FieldSeparator">FieldSeparator</a></td><td>Char</td><td>
+            Gets / sets the field separator. Defaults to comma character (%x2C) per rfc4180 specification.
+            </td></tr><tr><td><a href="#P:Dbarone.Net.Csv.CsvConfiguration.HasHeader">HasHeader</a></td><td>Boolean</td><td>
+            Gets / sets whether the Csv file has a header line. The default is true. If the Csv file does not have headers
+            then column names: 'Column1', 'Column2', 'Column3', ... are used.
+            </td></tr><tr><td><a href="#P:Dbarone.Net.Csv.CsvConfiguration.Headers">Headers</a></td><td>String[]</td><td>
+            Customer header specification.
+            </td></tr><tr><td><a href="#P:Dbarone.Net.Csv.CsvConfiguration.LineSeparator">LineSeparator</a></td><td>String</td><td>
+            Gets / sets the line separator string. Defaults to CRLF for non unix systems, LF for unix systems.
+            </td></tr><tr><td><a href="#P:Dbarone.Net.Csv.CsvConfiguration.ProcessRowErrorHandler">ProcessRowErrorHandler</a></td><td><a href="#T:Dbarone.Net.Csv.ProcessRowDelegate">ProcessRowDelegate</a></td><td>
+            Callback function for processing of invalid data rows.
+            </td></tr><tr><td><a href="#P:Dbarone.Net.Csv.CsvConfiguration.ProcessRowHandler">ProcessRowHandler</a></td><td><a href="#T:Dbarone.Net.Csv.ProcessRowDelegate">ProcessRowDelegate</a></td><td>
+            Callback function for process a data row
+            </td></tr>
+        </tbody>
+    </table>
+</div>
+        
+        
+    </div>
+</div>
+
+<div class="type">       
+    <h2 id="T:Dbarone.Net.Csv.CsvException">Class: CsvException</h2>
+    <div class="type-inner">
+        <a href="#top">Back to top</a>
+
+        
+        <h3>Definition:</h3>
+        <ul>
+            <li>Namespace: Dbarone.Net.Csv</li>
+            <li>Assembly: Dbarone.Net.Csv, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null</li>
+        </ul>
+        
+        
+        
+<h3>Base Class</h3>
+Exception
+
+        
+<h3>Implemented Interfaces</h3>
+<ul><li>ISerializable</li></ul>
+
+        
+
+        
+<h3>Summary</h3>
+
+            Exception class used for all exceptions in Dbarone.Net.Csv.
+            
+
+        
+        
+<h3>Constructors</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Parameters</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#M:Dbarone.Net.Csv.CsvException.#ctor(System.String)">.ctor</a></td><td>String</td><td>
+            Creates a new CsvException instance.
+            </td></tr>
+        </tbody>
+    </table>
+</div>
+        
+        
+        
+        
+    </div>
+</div>
+
+<div class="type">       
+    <h2 id="T:Dbarone.Net.Csv.CsvReader">Class: CsvReader</h2>
+    <div class="type-inner">
+        <a href="#top">Back to top</a>
+
+        
+        <h3>Definition:</h3>
+        <ul>
+            <li>Namespace: Dbarone.Net.Csv</li>
+            <li>Assembly: Dbarone.Net.Csv, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null</li>
+        </ul>
+        
+        
+        
+<h3>Base Class</h3>
+Object
+
+        
+
+        
+
+        
+<h3>Summary</h3>
+
+            Reads a csv file per https://datatracker.ietf.org/doc/html/rfc4180.
+            
+
+        
+        
+<h3>Constructors</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Parameters</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#M:Dbarone.Net.Csv.CsvReader.#ctor(System.IO.Stream,Dbarone.Net.Csv.CsvConfiguration)">.ctor</a></td><td>Stream,<a href="#T:Dbarone.Net.Csv.CsvConfiguration">CsvConfiguration</a></td><td>
+            Creates a new configured CsvReader instance from a stream and configueration.
+            </td></tr><tr><td><a href="#M:Dbarone.Net.Csv.CsvReader.#ctor(System.IO.Stream)">.ctor</a></td><td>Stream</td><td>
+            Creates a new configured CsvReader instance from a stream.
+            </td></tr>
+        </tbody>
+    </table>
+</div>
+        
+        
+        
+<h3>Methods</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Return Type</th>
+                <th>Parameters</th>
+                <th>Description</th>
+                <th>Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#M:Dbarone.Net.Csv.CsvReader.Read">Read</a></td><td>IEnumerable`1</td><td></td><td>
+            Reads a csv file.
+            </td><td></td></tr>
+        </tbody>
+    </table>
+</div>
+        
+    </div>
+</div>
+
+<div class="type">       
+    <h2 id="T:Dbarone.Net.Csv.CsvWriter">Class: CsvWriter</h2>
+    <div class="type-inner">
+        <a href="#top">Back to top</a>
+
+        
+        <h3>Definition:</h3>
+        <ul>
+            <li>Namespace: Dbarone.Net.Csv</li>
+            <li>Assembly: Dbarone.Net.Csv, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null</li>
+        </ul>
+        
+        
+        
+<h3>Base Class</h3>
+Object
+
+        
+
+        
+
+        
+<h3>Summary</h3>
+
+            Writes a csv file per https://datatracker.ietf.org/doc/html/rfc4180.
+            
+
+        
+        
+<h3>Constructors</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Parameters</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#M:Dbarone.Net.Csv.CsvWriter.#ctor(System.IO.Stream,Dbarone.Net.Csv.CsvConfiguration)">.ctor</a></td><td>Stream,<a href="#T:Dbarone.Net.Csv.CsvConfiguration">CsvConfiguration</a></td><td>
+            Creates a new configured CsvWriter instance from a stream and configuration.
+            </td></tr><tr><td><a href="#M:Dbarone.Net.Csv.CsvWriter.#ctor(System.IO.Stream)">.ctor</a></td><td>Stream</td><td>
+            Creates a new configured CsvWriter instance from a stream.
+            </td></tr>
+        </tbody>
+    </table>
+</div>
+        
+        
+        
+<h3>Methods</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Return Type</th>
+                <th>Parameters</th>
+                <th>Description</th>
+                <th>Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#M:Dbarone.Net.Csv.CsvWriter.Write(System.Collections.Generic.IEnumerable{System.Collections.Generic.IDictionary{System.String,System.Object}})">Write</a></td><td>Void</td><td>IEnumerable`1</td><td>
+            Writes a csv file.
+            </td><td></td></tr>
+        </tbody>
+    </table>
+</div>
+        
+    </div>
+</div>
+
+<div class="type">       
+    <h2 id="T:Dbarone.Net.Csv.ProcessRowDelegate">Class: ProcessRowDelegate</h2>
+    <div class="type-inner">
+        <a href="#top">Back to top</a>
+
+        
+        <h3>Definition:</h3>
+        <ul>
+            <li>Namespace: Dbarone.Net.Csv</li>
+            <li>Assembly: Dbarone.Net.Csv, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null</li>
+        </ul>
+        
+        
+        
+<h3>Base Class</h3>
+MulticastDelegate
+
+        
+<h3>Implemented Interfaces</h3>
+<ul><li>ICloneable</li><li>ISerializable</li></ul>
+
+        
+
+        
+<h3>Summary</h3>
+
+            Delegate for row processing. Allows the tokens to be checked or modified before being returned by the library. Set the tokens variable to null to ignore the row.
+            
+
+        
+        
+<h3>Constructors</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Parameters</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#M:Dbarone.Net.Csv.ProcessRowDelegate.#ctor(System.Object,System.IntPtr)">.ctor</a></td><td>Object,IntPtr</td><td></td></tr>
+        </tbody>
+    </table>
+</div>
+        
+        
+        
+<h3>Methods</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Return Type</th>
+                <th>Parameters</th>
+                <th>Description</th>
+                <th>Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#M:Dbarone.Net.Csv.ProcessRowDelegate.BeginInvoke(System.Int32,System.String{},System.Object{}&,System.AsyncCallback,System.Object)">BeginInvoke</a></td><td>IAsyncResult</td><td>Int32,String[],Object[]&,AsyncCallback,Object</td><td></td><td></td></tr><tr><td><a href="#M:Dbarone.Net.Csv.ProcessRowDelegate.EndInvoke(System.Object{}&,System.IAsyncResult)">EndInvoke</a></td><td>Boolean</td><td>Object[]&,IAsyncResult</td><td></td><td></td></tr><tr><td><a href="#M:Dbarone.Net.Csv.ProcessRowDelegate.Invoke(System.Int32,System.String{},System.Object{}&)">Invoke</a></td><td>Boolean</td><td>Int32,String[],Object[]&</td><td></td><td></td></tr>
+        </tbody>
+    </table>
+</div>
+        
+    </div>
+</div>
+
+<div class="type">       
+    <h2 id="T:Dbarone.Net.Csv.StringParser">Class: StringParser</h2>
+    <div class="type-inner">
+        <a href="#top">Back to top</a>
+
+        
+        <h3>Definition:</h3>
+        <ul>
+            <li>Namespace: Dbarone.Net.Csv</li>
+            <li>Assembly: Dbarone.Net.Csv, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null</li>
+        </ul>
+        
+        
+        
+<h3>Base Class</h3>
+Object
+
+        
+
+        
+
+        
+<h3>Summary</h3>
+
+            Provides parsing functions for a string similar to StreamReader.
+            
+
+        
+        
+<h3>Constructors</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Parameters</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#M:Dbarone.Net.Csv.StringParser.#ctor(System.String)">.ctor</a></td><td>String</td><td>
+            Creates a new StringParser instance.
+            </td></tr>
+        </tbody>
+    </table>
+</div>
+        
+        
+<h3>Properties</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Data Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#P:Dbarone.Net.Csv.StringParser.Eof">Eof</a></td><td>Boolean</td><td>
+            Returns true if EOF
+            </td></tr>
+        </tbody>
+    </table>
+</div>
+        
+<h3>Methods</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Return Type</th>
+                <th>Parameters</th>
+                <th>Description</th>
+                <th>Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#M:Dbarone.Net.Csv.StringParser.Match(System.Nullable{System.Char})">Match</a></td><td>Boolean</td><td>Nullable`1</td><td>
+            Matches a character.
+            </td><td></td></tr><tr><td><a href="#M:Dbarone.Net.Csv.StringParser.Peek">Peek</a></td><td>Nullable`1</td><td></td><td>
+            Peeks the next character without advancing the position.
+            </td><td></td></tr><tr><td><a href="#M:Dbarone.Net.Csv.StringParser.Read">Read</a></td><td>Nullable`1</td><td></td><td>
+            Reads a character from the string, and advances the position.
+            </td><td></td></tr>
+        </tbody>
+    </table>
+</div>
+        
+    </div>
+</div>
+
+<div class="type">       
+    <h2 id="T:Dbarone.Net.Csv.Tokeniser">Class: Tokeniser</h2>
+    <div class="type-inner">
+        <a href="#top">Back to top</a>
+
+        
+        <h3>Definition:</h3>
+        <ul>
+            <li>Namespace: Dbarone.Net.Csv</li>
+            <li>Assembly: Dbarone.Net.Csv, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null</li>
+        </ul>
+        
+        
+        
+<h3>Base Class</h3>
+Object
+
+        
+
+        
+
+        
+<h3>Summary</h3>
+
+            Gets the csv tokens in a string.
+            
+
+        
+        
+<h3>Constructors</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Parameters</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#M:Dbarone.Net.Csv.Tokeniser.#ctor(Dbarone.Net.Csv.CsvConfiguration)">.ctor</a></td><td><a href="#T:Dbarone.Net.Csv.CsvConfiguration">CsvConfiguration</a></td><td>
+            Initialises a new Tokeniser instance from a configuration.
+            </td></tr><tr><td><a href="#M:Dbarone.Net.Csv.Tokeniser.#ctor">.ctor</a></td><td></td><td>
+            Initialises a new Tokeniser instance.
+            </td></tr>
+        </tbody>
+    </table>
+</div>
+        
+        
+<h3>Properties</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Data Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#P:Dbarone.Net.Csv.Tokeniser.IsEOF">IsEOF</a></td><td>Boolean</td><td>
+            Is set to true if the underlying stream is at end of stream.
+            </td></tr><tr><td><a href="#P:Dbarone.Net.Csv.Tokeniser.LinesLastProcessed">LinesLastProcessed</a></td><td>Int32</td><td>
+            Returns the number of lines processed by the immediately previous Tokenise() method call.
+            </td></tr>
+        </tbody>
+    </table>
+</div>
+        
+<h3>Methods</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Return Type</th>
+                <th>Parameters</th>
+                <th>Description</th>
+                <th>Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><a href="#M:Dbarone.Net.Csv.Tokeniser.GetLine(System.IO.StreamReader)">GetLine</a></td><td>String</td><td>StreamReader</td><td>
+            Returns the next line, or final line if end of stream reached. Allow for non-standard line terminators to be specified.
+            The Read() method of StringReader only recognises standard end of line markers line CRLF and LF.
+            </td><td></td></tr><tr><td><a href="#M:Dbarone.Net.Csv.Tokeniser.Tokenise(System.IO.StreamReader)">Tokenise</a></td><td>String[]</td><td>StreamReader</td><td>
+            Gets the tokens on the next record. Note that this may read more than 1 line of the file.
+            </td><td></td></tr>
+        </tbody>
+    </table>
+</div>
+        
+    </div>
+</div>
+        
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.get_LineSeparator">Method: get_LineSeparator</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public string get_LineSeparator()</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.set_LineSeparator(System.String)">Method: set_LineSeparator</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public void set_LineSeparator(string value)</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>value</td>
+        <td>String</td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.get_FieldSeparator">Method: get_FieldSeparator</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public char get_FieldSeparator()</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.set_FieldSeparator(System.Char)">Method: set_FieldSeparator</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public void set_FieldSeparator(char value)</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>value</td>
+        <td>Char</td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.get_FieldEscape">Method: get_FieldEscape</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public char get_FieldEscape()</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.set_FieldEscape(System.Char)">Method: set_FieldEscape</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public void set_FieldEscape(char value)</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>value</td>
+        <td>Char</td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.get_HasHeader">Method: get_HasHeader</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public bool get_HasHeader()</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.set_HasHeader(System.Boolean)">Method: set_HasHeader</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public void set_HasHeader(bool value)</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>value</td>
+        <td>Boolean</td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.get_Culture">Method: get_Culture</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public System.Globalization.CultureInfo get_Culture()</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.set_Culture(System.Globalization.CultureInfo)">Method: set_Culture</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public void set_Culture(System.Globalization.CultureInfo value)</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>value</td>
+        <td>CultureInfo</td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.get_Headers">Method: get_Headers</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public System.String[] get_Headers()</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.set_Headers(System.String{})">Method: set_Headers</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public void set_Headers(System.String[] value)</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>value</td>
+        <td>String[]</td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.get_ProcessRowErrorHandler">Method: get_ProcessRowErrorHandler</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public Dbarone.Net.Csv.ProcessRowDelegate get_ProcessRowErrorHandler()</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.set_ProcessRowErrorHandler(Dbarone.Net.Csv.ProcessRowDelegate)">Method: set_ProcessRowErrorHandler</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public void set_ProcessRowErrorHandler(Dbarone.Net.Csv.ProcessRowDelegate value)</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>value</td>
+        <td><a href="#T:Dbarone.Net.Csv.ProcessRowDelegate">ProcessRowDelegate</a></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.get_ProcessRowHandler">Method: get_ProcessRowHandler</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public Dbarone.Net.Csv.ProcessRowDelegate get_ProcessRowHandler()</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.set_ProcessRowHandler(Dbarone.Net.Csv.ProcessRowDelegate)">Method: set_ProcessRowHandler</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public void set_ProcessRowHandler(Dbarone.Net.Csv.ProcessRowDelegate value)</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>value</td>
+        <td><a href="#T:Dbarone.Net.Csv.ProcessRowDelegate">ProcessRowDelegate</a></td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvConfiguration.#ctor">Constructor: .ctor</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public CsvConfiguration()</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="P:Dbarone.Net.Csv.CsvConfiguration.LineSeparator">Property: LineSeparator</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+
+        <h3>Summary</h3>
+
+            Gets / sets the line separator string. Defaults to CRLF for non unix systems, LF for unix systems.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="P:Dbarone.Net.Csv.CsvConfiguration.FieldSeparator">Property: FieldSeparator</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+
+        <h3>Summary</h3>
+
+            Gets / sets the field separator. Defaults to comma character (%x2C) per rfc4180 specification.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="P:Dbarone.Net.Csv.CsvConfiguration.FieldEscape">Property: FieldEscape</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+
+        <h3>Summary</h3>
+
+            Gets / sets an optional field escape character. Defaults to double-quote character (%x22) per rfc4180 specification
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="P:Dbarone.Net.Csv.CsvConfiguration.HasHeader">Property: HasHeader</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+
+        <h3>Summary</h3>
+
+            Gets / sets whether the Csv file has a header line. The default is true. If the Csv file does not have headers
+            then column names: 'Column1', 'Column2', 'Column3', ... are used.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="P:Dbarone.Net.Csv.CsvConfiguration.Culture">Property: Culture</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+
+        <h3>Summary</h3>
+
+            Gets / sets the culture. Defaults to InvariantCulture.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="P:Dbarone.Net.Csv.CsvConfiguration.Headers">Property: Headers</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+
+        <h3>Summary</h3>
+
+            Customer header specification.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="P:Dbarone.Net.Csv.CsvConfiguration.ProcessRowErrorHandler">Property: ProcessRowErrorHandler</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+
+        <h3>Summary</h3>
+
+            Callback function for processing of invalid data rows.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="P:Dbarone.Net.Csv.CsvConfiguration.ProcessRowHandler">Property: ProcessRowHandler</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+
+        <h3>Summary</h3>
+
+            Callback function for process a data row
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="F:Dbarone.Net.Csv.CsvConfiguration.RowProcessIgnoreBlank">Field: RowProcessIgnoreBlank</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+
+        <h3>Summary</h3>
+
+            InvalidRowDelegate to ignore blank rows in the Csv file.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="F:Dbarone.Net.Csv.CsvConfiguration.RowProcessError">Field: RowProcessError</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+
+        <h3>Summary</h3>
+
+            Row handler that errors on each row.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="F:Dbarone.Net.Csv.CsvConfiguration.RowProcessDefault">Field: RowProcessDefault</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+
+        <h3>Summary</h3>
+
+            Default row handler that does no proessing, but leaves the values as is.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id=":Dbarone.Net.Csv.CsvConfiguration.Dbarone#Net#Csv#CsvConfiguration+<>c">: <>c</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvConfiguration">Dbarone.Net.Csv.CsvConfiguration</a>
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvException.#ctor(System.String)">Constructor: .ctor</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvException">Dbarone.Net.Csv.CsvException</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public CsvException(string message)</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Creates a new CsvException instance.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvReader.Read">Method: Read</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvReader">Dbarone.Net.Csv.CsvReader</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public System.Collections.Generic.IEnumerable<System.Collections.Generic.IDictionary<string, object>> Read()</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Reads a csv file.
+            
+
+        
+
+        
+
+        
+
+        <h3>Returns</h3>
+Parses the csv file and returns a dictionary object for each row.
+
+        <h3>Exceptions</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Exception</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td><a href="#T:Dbarone.Net.Csv.CsvException">CsvException</a></td><td>Throws an exception under various error conditions.</td></tr>
+    </tbody>
+</table>
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvReader.#ctor(System.IO.Stream,Dbarone.Net.Csv.CsvConfiguration)">Constructor: .ctor</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvReader">Dbarone.Net.Csv.CsvReader</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public CsvReader(System.IO.Stream stream, Dbarone.Net.Csv.CsvConfiguration configuration)</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Creates a new configured CsvReader instance from a stream and configueration.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvReader.#ctor(System.IO.Stream)">Constructor: .ctor</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvReader">Dbarone.Net.Csv.CsvReader</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public CsvReader(System.IO.Stream stream)</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Creates a new configured CsvReader instance from a stream.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id=":Dbarone.Net.Csv.CsvReader.Dbarone#Net#Csv#CsvReader+<Read>d__10">: <Read>d__10</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvReader">Dbarone.Net.Csv.CsvReader</a>
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvWriter.Write(System.Collections.Generic.IEnumerable{System.Collections.Generic.IDictionary{System.String,System.Object}})">Method: Write</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvWriter">Dbarone.Net.Csv.CsvWriter</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public void Write(System.Collections.Generic.IEnumerable<System.Collections.Generic.IDictionary<string, object>> data)</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Writes a csv file.
+            
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>data</td>
+        <td>IEnumerable`1</td>
+        <td>The data to write.</td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        
+
+        <h3>Exceptions</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Exception</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td><a href="#T:Dbarone.Net.Csv.CsvException">CsvException</a></td><td>Throws an exception under various error conditions.</td></tr>
+    </tbody>
+</table>
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvWriter.#ctor(System.IO.Stream,Dbarone.Net.Csv.CsvConfiguration)">Constructor: .ctor</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvWriter">Dbarone.Net.Csv.CsvWriter</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public CsvWriter(System.IO.Stream stream, Dbarone.Net.Csv.CsvConfiguration configuration)</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Creates a new configured CsvWriter instance from a stream and configuration.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.CsvWriter.#ctor(System.IO.Stream)">Constructor: .ctor</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.CsvWriter">Dbarone.Net.Csv.CsvWriter</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public CsvWriter(System.IO.Stream stream)</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Creates a new configured CsvWriter instance from a stream.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.ProcessRowDelegate.Invoke(System.Int32,System.String{},System.Object{}&)">Method: Invoke</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.ProcessRowDelegate">Dbarone.Net.Csv.ProcessRowDelegate</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public bool Invoke(int record, System.String[] headers, ref System.Object[]& values)</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>record</td>
+        <td>Int32</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>headers</td>
+        <td>String[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>values</td>
+        <td>Object[]&</td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.ProcessRowDelegate.BeginInvoke(System.Int32,System.String{},System.Object{}&,System.AsyncCallback,System.Object)">Method: BeginInvoke</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.ProcessRowDelegate">Dbarone.Net.Csv.ProcessRowDelegate</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public System.IAsyncResult BeginInvoke(int record, System.String[] headers, ref System.Object[]& values, System.AsyncCallback callback, object object)</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>record</td>
+        <td>Int32</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>headers</td>
+        <td>String[]</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>values</td>
+        <td>Object[]&</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>callback</td>
+        <td>AsyncCallback</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>object</td>
+        <td>Object</td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.ProcessRowDelegate.EndInvoke(System.Object{}&,System.IAsyncResult)">Method: EndInvoke</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.ProcessRowDelegate">Dbarone.Net.Csv.ProcessRowDelegate</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public bool EndInvoke(ref System.Object[]& values, System.IAsyncResult result)</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>values</td>
+        <td>Object[]&</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>result</td>
+        <td>IAsyncResult</td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.ProcessRowDelegate.#ctor(System.Object,System.IntPtr)">Constructor: .ctor</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.ProcessRowDelegate">Dbarone.Net.Csv.ProcessRowDelegate</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public ProcessRowDelegate(object object, nint method)</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.StringParser.Match(System.Nullable{System.Char})">Method: Match</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.StringParser">Dbarone.Net.Csv.StringParser</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public bool Match(System.Nullable<char> token)</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Matches a character.
+            
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>token</td>
+        <td>Nullable`1</td>
+        <td>The token char to match.</td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        <h3>Returns</h3>
+Returns true and advances the position if a match. If no match, the position is not modified.
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.StringParser.Read">Method: Read</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.StringParser">Dbarone.Net.Csv.StringParser</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public System.Nullable<char> Read()</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Reads a character from the string, and advances the position.
+            
+
+        
+
+        
+
+        
+
+        <h3>Returns</h3>
+Returns the read character.
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.StringParser.Peek">Method: Peek</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.StringParser">Dbarone.Net.Csv.StringParser</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public System.Nullable<char> Peek()</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Peeks the next character without advancing the position.
+            
+
+        
+
+        
+
+        
+
+        <h3>Returns</h3>
+Returns the peeked character.
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.StringParser.get_Eof">Method: get_Eof</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.StringParser">Dbarone.Net.Csv.StringParser</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public bool get_Eof()</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.StringParser.#ctor(System.String)">Constructor: .ctor</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.StringParser">Dbarone.Net.Csv.StringParser</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public StringParser(string str)</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Creates a new StringParser instance.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="P:Dbarone.Net.Csv.StringParser.Eof">Property: Eof</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.StringParser">Dbarone.Net.Csv.StringParser</a>
+
+        
+
+        <h3>Summary</h3>
+
+            Returns true if EOF
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.Tokeniser.get_IsEOF">Method: get_IsEOF</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.Tokeniser">Dbarone.Net.Csv.Tokeniser</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public bool get_IsEOF()</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.Tokeniser.set_IsEOF(System.Boolean)">Method: set_IsEOF</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.Tokeniser">Dbarone.Net.Csv.Tokeniser</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public void set_IsEOF(bool value)</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>value</td>
+        <td>Boolean</td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.Tokeniser.get_LinesLastProcessed">Method: get_LinesLastProcessed</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.Tokeniser">Dbarone.Net.Csv.Tokeniser</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public int get_LinesLastProcessed()</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.Tokeniser.set_LinesLastProcessed(System.Int32)">Method: set_LinesLastProcessed</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.Tokeniser">Dbarone.Net.Csv.Tokeniser</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public void set_LinesLastProcessed(int value)</code></pre>
+            
+
+        
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>value</td>
+        <td>Int32</td>
+        <td></td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.Tokeniser.GetLine(System.IO.StreamReader)">Method: GetLine</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.Tokeniser">Dbarone.Net.Csv.Tokeniser</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public string GetLine(System.IO.StreamReader sr)</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Returns the next line, or final line if end of stream reached. Allow for non-standard line terminators to be specified.
+            The Read() method of StringReader only recognises standard end of line markers line CRLF and LF.
+            
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>sr</td>
+        <td>StreamReader</td>
+        <td>The StreamReader instance.</td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        <h3>Returns</h3>
+Returns 1 line of characters up to the end of line marker (or end of stream).
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.Tokeniser.Tokenise(System.IO.StreamReader)">Method: Tokenise</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.Tokeniser">Dbarone.Net.Csv.Tokeniser</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public System.String[] Tokenise(System.IO.StreamReader sr)</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Gets the tokens on the next record. Note that this may read more than 1 line of the file.
+            
+
+        
+
+        
+
+        
+<h3>Parameters</h3>
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+    <tr>
+        <td>sr</td>
+        <td>StreamReader</td>
+        <td>The input stream reader.</td>
+    </tr>
+        </tbody>
+    </table>
+</div>
+
+        <h3>Returns</h3>
+Returns a string array of tokens
+
+        <h3>Exceptions</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Exception</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td><a href="#T:Dbarone.Net.Csv.CsvException">CsvException</a></td><td>Throws an exception in certain error conditions.</td></tr>
+    </tbody>
+</table>
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.Tokeniser.#ctor(Dbarone.Net.Csv.CsvConfiguration)">Constructor: .ctor</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.Tokeniser">Dbarone.Net.Csv.Tokeniser</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public Tokeniser(Dbarone.Net.Csv.CsvConfiguration configuration)</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Initialises a new Tokeniser instance from a configuration.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="M:Dbarone.Net.Csv.Tokeniser.#ctor">Constructor: .ctor</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.Tokeniser">Dbarone.Net.Csv.Tokeniser</a>
+
+        
+<h3>Signature</h3>
+<pre><code>public Tokeniser()</code></pre>
+            
+
+        <h3>Summary</h3>
+
+            Initialises a new Tokeniser instance.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="P:Dbarone.Net.Csv.Tokeniser.IsEOF">Property: IsEOF</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.Tokeniser">Dbarone.Net.Csv.Tokeniser</a>
+
+        
+
+        <h3>Summary</h3>
+
+            Is set to true if the underlying stream is at end of stream.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+<div class="member">
+    <h2 id="P:Dbarone.Net.Csv.Tokeniser.LinesLastProcessed">Property: LinesLastProcessed</h1>
+    <div class="member-inner">
+
+        <h3>Declaring Type</h3>
+        <a href="#T:Dbarone.Net.Csv.Tokeniser">Dbarone.Net.Csv.Tokeniser</a>
+
+        
+
+        <h3>Summary</h3>
+
+            Returns the number of lines processed by the immediately previous Tokenise() method call.
+            
+
+        
+
+        
+
+        
+
+        
+
+        
+
+    </div>
+</div>
+
+
+        <!-- Footer / Commentario link -->
+        <div class="footer">
+            Documentation generated on 09-Jun-2024 14:00:07 using <a href="https://github.com/davidbarone/Commentario">Commentario</a>.
+        </div>
+
+    </body>
+    <!-- https://highlightjs.org/#usage -->
+    <script>hljs.highlightAll();</script>
+</html>
